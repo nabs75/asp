@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="fr" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Aidons Son Prochain</title>
+    <style>
+        /* =========================================
+           VARIABLES GRAPHIQUES
+           ========================================= */
+        :root {
+            --primary-color: #D83A56; 
+            --secondary-color: #FF5E62;
+            --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fda085 100%);
+            --page-bg: #ffffff;
+            --link-color: #D83A56;
+        }
+
+        /* =========================================
+           STYLE LANDING PAGE (CSS STANDARD)
+           ========================================= */
+        
+        html, body {
+            margin: 0;
+            padding: 0; 
+            width: 100%;
+            min-height: 100vh; 
+            background-color: #ffffff; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        /* --- CONTENEUR PRINCIPAL --- */
+        .container-public {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; /* Colonne pour footer en bas */
+            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex: 1; /* Pousse le footer en bas si peu de contenu */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- TITRES GENERAUX --- */
+        h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 10px;
+            padding-top: 20px;
+        }
+        
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, #FF9966, #FF5E62);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- SECTION HERO --- */
+        .hero {
+            background: var(--bg-gradient);
+            text-align: center;
+            padding: 40px 20px 60px 20px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        /* --- STYLE DU LOGO --- */
+        .hero-logo {
+            display: block;       
+            margin: 0 auto;       
+            max-width: 250px;     
+            height: auto;         
+            margin-bottom: 20px;   
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+
+        .brand-hero-text {
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: #ffffff; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero h1 { color: #ffffff; font-size: 2.2rem; margin-bottom: 15px; font-weight: 700; text-shadow: 0 2px 10px rgba(0,0,0,0.1); line-height: 1.2;}
+        .hero p { font-size: 1.1rem; color: #ffffff; max-width: 600px; margin: 0 auto 20px auto; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+
+        .btn-group { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+
+        .btn {
+            padding: 12px 25px; text-decoration: none; border-radius: 50px; font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s; display: inline-block;
+            font-size: 1rem;
+            border: none;
+        }
+
+        .btn-primary { 
+            background: linear-gradient(45deg, #FF512F, #DD2476); 
+            color: white; 
+            box-shadow: 0 5px 15px rgba(221, 36, 118, 0.4);
+        }
+
+        .btn-secondary { 
+            background: linear-gradient(45deg, #ffffff, #fdfbfb); 
+            color: #DD2476; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+
+        /* --- HISTORIQUE --- */
+        .history { 
+            background: linear-gradient(to bottom, #fff, #fff9f5); 
+            padding: 40px 20px; 
+            margin-bottom: 50px; 
+            border-left: 5px solid #FF9966; 
+            border-radius: 0 20px 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .history-text { font-size: 1.1rem; color: #444; margin-bottom: 30px; text-align: justify; }
+        .poles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; margin-bottom: 30px; }
+        .pole-card { background-color: #fff; border: 1px solid #ffeeee; border-radius: 20px; padding: 30px; text-align: center; box-shadow: 0 5px 15px rgba(255, 153, 102, 0.1); transition: transform 0.3s; }
+        .pole-card:hover { transform: translateY(-5px); }
+        .pole-card h3 { color: #FF5E62; margin-bottom: 10px; font-size: 1.4rem; }
+        .current-state { text-align: center; background: linear-gradient(135deg, #fff5f5, #fff0f0); padding: 25px; border-radius: 20px; color: #D83A56; font-weight: 600; border: 1px solid #ffe0e0; }
+
+        /* --- SECTIONS POLES --- */
+        .pole-section { margin-bottom: 60px; }
+        .pole-intro { text-align: center; margin-bottom: 40px; color: #555; font-size: 1.1rem; }
+        .tag-exclusive { background: linear-gradient(45deg, #FF9966, #FF5E62); color: white; font-size: 0.8rem; padding: 5px 20px; border-radius: 30px; vertical-align: middle; margin-left: 10px; text-transform: uppercase; font-weight: bold; box-shadow: 0 2px 5px rgba(221, 36, 118, 0.2); }
+        
+        .action-grid { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; }
+        .action-card { background: white; border: 1px solid #fff; border-radius: 20px; padding: 30px; width: 100%; max-width: 350px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .action-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(255, 94, 98, 0.15); border-color: #ffe0e0; }
+        .action-icon { font-size: 3rem; margin-bottom: 20px; text-align: center; }
+        .action-card h3 { color: #D83A56; font-size: 1.3rem; margin-bottom: 15px; text-align: center; }
+        .action-card p { font-size: 1rem; color: #555; text-align: justify; }
+
+        /* --- FAIRE UN DON --- */
+        .donation-section { 
+            background: linear-gradient(135deg, #fdfbfb 0%, #ffedef 100%);
+            padding: 50px 20px; 
+            text-align: center; 
+            border-radius: 20px; 
+            margin-bottom: 60px; 
+            border: 2px solid #fff;
+            box-shadow: inset 0 0 20px rgba(255, 94, 98, 0.05);
+        }
+        .tax-badge { 
+            background: linear-gradient(45deg, #FF9966, #FF5E62); 
+            color: white; 
+            padding: 15px 30px; 
+            border-radius: 50px; 
+            display: inline-block; 
+            font-weight: bold; 
+            font-size: 1.2rem; 
+            margin-bottom: 25px; 
+            box-shadow: 0 5px 15px rgba(255, 94, 98, 0.4);
+        }
+        .donation-text { max-width: 800px; margin: 0 auto 25px auto; color: #555; font-size: 1.1rem; }
+        .donation-grid { display: flex; flex-direction: column; gap: 25px; margin-top: 25px; align-items: center; }
+        .donation-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); width: 100%; max-width: 400px; text-align: left; border-top: 5px solid #ff9966; transition: 0.3s; }
+        .donation-card:hover { transform: translateY(-5px); }
+        .donation-card h3 { color: #D83A56; margin-bottom: 20px; font-size: 1.4rem; }
+        
+        .btn-donate-large {
+            background: linear-gradient(45deg, #ff9966, #ff5e62);
+            color: white; text-align: center; display: block; padding: 18px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 25px; transition: all 0.3s; cursor: pointer; border: none; box-shadow: 0 5px 15px rgba(255, 94, 98, 0.3); font-size: 1.1rem;
+        }
+        .btn-donate-large:hover { transform: scale(1.02); box-shadow: 0 8px 20px rgba(255, 94, 98, 0.4); filter: brightness(1.05); }
+        
+        address { font-style: normal; margin-top: 20px; padding: 20px; background-color: #fff9f9; border-radius: 10px; font-size: 1rem; border: 1px solid #ffeeee; }
+
+        /* --- CHIFFRES CLÉS --- */
+        .stats { 
+            background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+            color: white; 
+            padding: 50px 20px; 
+            border-radius: 20px; 
+            text-align: center; 
+            margin-bottom: 60px; 
+            box-shadow: 0 10px 30px rgba(78, 67, 118, 0.2);
+        }
+        .stats h2 { color: white; font-size: 2rem; margin-bottom: 30px; }
+        .stats h2::after { background: rgba(255,255,255,0.5); }
+        
+        .stats-grid { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; }
+        .stat-item h3 { font-size: 2.8rem; font-weight: 800; color: #ff9966; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .stat-item p { font-size: 1rem; opacity: 0.9; letter-spacing: 1px; text-transform: uppercase; font-size: 0.8rem; }
+
+        /* --- PRESSE --- */
+        .press-section { margin-bottom: 60px; padding: 40px 20px; background: linear-gradient(to bottom, #ffffff, #fdfdfd); border-radius: 20px; }
+        .press-grid { display: grid; grid-template-columns: 1fr; gap: 25px; }
+        .press-card { background: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; height: 100%; border-top: 4px solid #D83A56; transition: transform 0.3s; }
+        .press-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(216, 58, 86, 0.15); }
+        .press-source { font-weight: 700; font-size: 1.1rem; color: #333; margin-bottom: 10px; }
+        .btn-press { color: #D83A56; text-decoration: none; font-size: 1rem; font-weight: 600; padding-top: 15px; border-top: 1px solid #ffe0e0; width: 100%; display: block; }
+        .btn-press:hover { text-decoration: underline; background-color: #fffafa; }
+
+        /* --- PARTENAIATS --- */
+        .partners-section { margin-bottom: 60px; padding: 40px 20px; background: linear-gradient(135deg, #fffbf5 0%, #fff0f0 100%); border-radius: 20px; }
+        .partners-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 40px; }
+        .partner-card { background: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; border-bottom: 3px solid #FF9966; height: 80px; transition: transform 0.3s; }
+        .partner-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(255, 94, 98, 0.2); }
+        .partner-name { font-weight: 700; font-size: 1.1rem; color: #333; }
+
+        .hospitals-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .hospital-card { background: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 4px solid #D83A56; transition: transform 0.3s; }
+        .hospital-card:hover { transform: translateX(5px); background-color: #fffafa; }
+        .hospital-icon { font-size: 2rem; margin-bottom: 15px; display: block; }
+        .hospital-name { font-weight: 600; font-size: 1.1rem; color: #444; }
+
+        /* --- SECTION CONTACT --- */
+        .contact-section { background: linear-gradient(135deg, #fff9f5 0%, #ffdefa 100%); padding: 40px 20px; border-radius: 20px; margin-bottom: 60px; }
+        .contact-container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 10px; font-weight: 600; color: #555; font-size: 1rem; }
+        .form-group input, .form-group textarea { width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 10px; font-family: inherit; font-size: 1rem; transition: border 0.3s; background: #fafafa; }
+        .form-group input:focus, .form-group textarea:focus { border-color: #FF9966; outline: none; background: white; }
+        .form-group textarea { resize: vertical; }
+        .contact-note { font-size: 0.9rem; color: #888; margin-top: 15px; text-align: center; font-style: italic; }
+
+        /* --- FOOTER --- */
+        .footer { 
+            text-align: center; 
+            font-size: 1rem; 
+            color: #888; 
+            padding: 20px 0 40px 0; 
+            margin-top: auto; /* Pousse le footer en bas */
+            border-top: 1px solid #ffe0e0; 
+            width: 100%; 
+        }
+        .footer p { margin-bottom: 10px; }
+        .footer a { color: #D83A56; text-decoration: none; transition: 0.3s; }
+        .footer a:hover { color: #FF5E62; }
+
+        .footer-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            display: inline-block;
+            width: 35px; 
+            height: 35px;
+            transition: transform 0.2s;
+            object-fit: contain;
+        }
+        .social-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .container { padding: 0 15px; }
+            .brand-hero-text { font-size: 1.6rem; }
+            .hero { padding: 30px 15px 40px 15px; }
+            .hero-logo { max-width: 200px; }
+            .hero h1 { font-size: 1.6rem; }
+            .hero p { font-size: 1rem; margin-bottom: 15px; }
+            .btn-group { gap: 15px; }
+            .btn { padding: 10px 20px; font-size: 0.9rem; }
+            .poles-grid { grid-template-columns: 1fr; }
+            .action-card { width: 100%; }
+            .donation-section { padding: 30px 15px; }
+            .donation-grid { grid-template-columns: 1fr; }
+            .donation-card { width: 100%; }
+            .stats { padding: 30px 15px; }
+            .stats h2 { font-size: 1.6rem; }
+            .stats-grid { gap: 30px; }
+            .stat-item h3 { font-size: 2.2rem; }
+            .press-grid { grid-template-columns: 1fr; }
+            .partners-grid { grid-template-columns: 1fr; }
+            .hospitals-grid { grid-template-columns: 1fr; }
+            .contact-section { padding: 30px 15px; }
+            .contact-container { padding: 20px; }
+        }
+
+        /* =========================================
+           STYLE COMPTA ASSO (INTÉGRÉ)
+           ========================================= */
+        
+        /* Variables Application */
+        #login-screen, #app-content {
+            --primary: #D83A56;
+            --secondary: #4e4376;
+            --accent: #FF9966;
+            --danger: #ff5e62;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Login Screen */
+        #login-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #D83A56; z-index: 10000;
+            display: none;
+            align-items: center; justify-content: center;
+        }
+        .login-box {
+            background: white; padding: 2.5rem; border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; width: 90%; max-width: 350px;
+        }
+        .login-box input { width: 100%; padding: 15px; margin: 20px 0; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+        .login-btn { width: 100%; padding: 15px; background: var(--accent); color: white; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer; font-weight: bold; }
+        .login-error { color: var(--danger); font-size: 1rem; margin-top: 15px; display: none; }
+        
+        #app-content { display: none; z-index: 9999; position: relative; background: #fffbfb; min-height: 100vh; padding-bottom: 0; width: 100%; }
+        .hidden { display: none !important; }
+
+        #app-content header { background: white; padding: 1.2rem; box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; }
+        #app-content h1 { font-size: 1.3rem; display: flex; align-items: center; gap: 10px; margin: 0; color: var(--primary); }
+
+        #app-content .container { max-width: 600px; margin: 2rem auto; padding: 0 1rem; width: 100%; flex: 1; }
+        
+        #app-content .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; background: transparent; color: var(--primary); border-radius: 0; padding: 0; }
+        #app-content .stats .card { background: white; padding: 1rem; border-radius: 12px; box-shadow: var(--shadow); text-align: center; border-top: none; }
+        #app-content .stats .card h3 { font-size: 0.9rem; color: #7f8c8d; margin-bottom: 5px; }
+        #app-content .stats .card .val { font-size: 1.3rem; font-weight: bold; }
+        #app-content .stats .card .val.green { color: var(--accent); }
+        #app-content .stats .card .val.red { color: var(--danger); }
+
+        #app-content .form-box { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: var(--shadow); }
+        #app-content .form-group { margin-bottom: 1.2rem; }
+        #app-content label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 1rem; }
+        #app-content input, #app-content select { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+
+        #app-content .type-group { display: flex; gap: 10px; }
+        #app-content .type-btn { flex:1; padding: 12px; border: 1px solid #ddd; background: white; border-radius: 8px; cursor: pointer; }
+        #app-content .type-btn.active { font-weight: bold; border-width: 2px; border-color: var(--accent); background-color: #fff9f5; }
+
+        #app-content .file-upload-wrapper { border: 2px dashed #ccc; border-radius: 8px; padding: 25px; text-align: center; cursor: pointer; transition: 0.3s; background: #fafafa; }
+        #app-content .file-upload-wrapper:hover { border-color: var(--accent); background: #fff5f5; }
+        #app-content .file-upload-wrapper input { display: none; }
+        #file-preview { max-width: 120px; max-height: 120px; margin-top: 15px; border-radius: 4px; display: none; }
+
+        #app-content .btn-submit { width: 100%; padding: 18px; background: linear-gradient(45deg, #FF9966, #FF5E62); color: white; border: none; border-radius: 8px; font-size: 1.2rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 10px rgba(255, 94, 98, 0.3); transition: 0.3s; }
+        #app-content .btn-submit:hover { transform: translateY(-2px); }
+        #app-content .btn-submit:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #333; color: white; padding: 12px 24px; border-radius: 50px; transition: 0.3s; opacity: 0; z-index: 20000; text-align: center; width: 90%; max-width: 350px; }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    </style>
+</head>
+<body>
+
+<!-- WRAPPER SITE PUBLIC -->
+<div class="container-public">    
+    <div class="container">
+        
+        <!-- SECTION 1 : HERO -->
+        <section class="hero">
+            <img src="https://filedn.eu/lK5hYl5s2IwBMBWXryswvmj/logoasp.png" alt="Logo Association ASP" class="hero-logo">
+            
+            <div class="brand-hero-text">ASP - Aider Son Prochain</div>
+            
+            <h1>Ensemble, redonnons le sourire</h1>
+            <p>Grâce à votre engagement et notre solidarité, nous créons des liens durables et apportons un soutien concret à ceux qui en ont besoin.</p>
+            
+            <div class="btn-group">
+                <a href="https://www.helloasso.com/associations/aider-son-prochain/formulaires/1?_gl=1*3s5wt3*_gcl_aw*R0NMLjE3NjQ4MzQ3NTcuQ2p3S0NBaUEzTF9KQmhBbEVpd0FsY1dPNTZOSENHUmtfOEx6ck9WV0VONHlLTVpmRUtkcC1EeWlXXzdycTVBSUNUWUJSQVJ5Z3dCcXN4b0M5OTRRQXZEX0J3RQ..*_gcl_au*MjA4NzM1NzM3NS4xNzYzOTk3NTQ2LjE0MjU1NTE1OTEuMTc2NTg3NDI5My4xNzY1ODc0Mjky" target="_blank" class="btn btn-primary">Faire un don</a>
+                
+                <a href="mailto:polemedical@aidersonprochain.fr?subject=Candidature Bénévole" class="btn btn-secondary">Devenir bénévole</a>
+            </div>
+        </section>
+
+        <!-- SECTION 2 : HISTORIQUE -->
+        <section class="history">
+            <h2>Notre Historique</h2>
+            
+            <div class="history-text">
+                <p style="margin-bottom: 20px;">
+                    L'Association <strong>ASP</strong> (Aider Son Prochain) a vu le jour à <strong>Vénissieux</strong>. Avant de se déclarer officiellement en préfecture, tous les membres du bureau étaient déjà des bénévoles actifs et libres, se greffant avec d'autres associations pour effectuer de nombreuses actions sociales : distribution de repas chauds, de vêtements, aide aux personnes âgées dans les foyers, etc.
+                </p>
+                <p>
+                    Très vite, l'association (loi 1901) s'est développée et a compté de nombreux adhérents et bénévoles. Pour une meilleure efficacité dans les actions, ASP s'est structurée en <strong>2 pôles</strong> :
+                </p>
+            </div>
+
+            <div class="poles-grid">
+                <div class="pole-card">
+                    <h3>Pôle Social</h3>
+                    <p>Actions de terrain, solidarité et aide aux plus démunis.</p>
+                </div>
+                <div class="pole-card">
+                    <h3>Pôle Médical</h3>
+                    <p>Accompagnement et soutien dans les parcours de soins et opérations.</p>
+                </div>
+            </div>
+
+            <div class="current-state">
+                Aujourd’hui, ASP compte <strong>2 antennes</strong> (Paris, Annemasse), <strong>5 membres de bureau</strong> et <strong>100 bénévoles</strong> dont 85 adhérents actifs.
+            </div>
+        </section>
+
+        <!-- SECTION 3 : LE POLE MEDICAL -->
+        <section class="pole-section">
+            <h2>Le Pôle Médical <span class="tag-exclusive">Enfance Uniquement</span></h2>
+            <p class="pole-intro">Une mission humanitaire et chirurgicale dédiée <strong>exclusivement aux enfants</strong> pour sauver des vies.</p>
+            
+            <div class="action-grid">
+                <div class="action-card">
+                    <div class="action-icon">🏥</div>
+                    <h3>Prise en charge chirurgicale</h3>
+                    <p><strong>Notre aide médicale est exclusivement destinée aux enfants.</strong> Nous finançons les opérations chirurgicales et les soins indispensables pour traiter des pathologies graves et rares. Grâce à vos dons, nous prenons en charge chaque année des enfants en danger vital venant de l'étranger. Depuis sa création, l’association a aidé environ 20 enfants (Tunisie, Algérie, Maroc, Guyane, Albanie, Mauritanie, Bangui...).</p>
+                </div>
+                <div class="action-card">
+                    <div class="action-icon">🎡</div>
+                    <h3>Sorties extérieures</h3>
+                    <p>Pour rompre avec le quotidien et la routine des hôpitaux, des sorties extérieures sont organisées pour les enfants malades. L’association y invite également les enfants défavorisés qu’elle accompagne pour leur offrir des moments d'évasion.</p>
+                </div>
+                <div class="action-card">
+                    <div class="action-icon">🎭</div>
+                    <h3>Animations à l'hôpital</h3>
+                    <p>Rien de tel que de donner le sourire à un enfant dont le quotidien est complètement chamboulé par la maladie… Nous les plongeons dans un monde imaginaire et féerique grâce à des spectacles, kermesses et autres activités ludiques.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4 : LE POLE SOCIAL -->
+        <section class="pole-section" style="background: linear-gradient(to bottom, #fffbf5, #fff); padding: 50px 20px; border-radius: 20px;">
+            <h2>Le Pôle Social</h2>
+            <p class="pole-intro">Solidarité active et présence sur le terrain pour les plus vulnérables.</p>
+            
+            <div class="action-grid">
+                <div class="action-card">
+                    <div class="action-icon">🍲</div>
+                    <h3>Distributions de repas & vêtements</h3>
+                    <p>Grâce aux talents de nombreuses cuisinières membres de l’association, des distributions de repas chauds sont effectuées une fois par mois à Lyon côté Gare Part Dieu tout l’hiver, auprès des sans-abris et des plus démunis.</p>
+                </div>
+                <div class="action-card">
+                    <div class="action-icon">🧥</div>
+                    <h3>Récolte de dons</h3>
+                    <p>Aussi, pendant la période de froid, ASP récolte des dons de vêtements pour les personnes les plus démunies. Lavés et triés, ces vêtements sont redistribués pour lutter contre le froid hivernal.</p>
+                </div>
+                <div class="action-card">
+                    <div class="action-icon">👨‍👩‍👧</div>
+                    <h3>Aide aux familles</h3>
+                    <p>ASP soutient ces familles vivant en dessous du seuil de pauvreté via des colis alimentaires et aides vestimentaires, afin de les accompagner dans leurs difficultés du quotidien.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5 : FAIRE UN DON -->
+        <section id="donation" class="donation-section">
+            <h2>Faire un don à AIDER SON PROCHAIN</h2>
+            
+            <div class="tax-badge">Déductible des impôts de 75%</div>
+            
+            <p class="donation-text">
+                L’association ASP (loi 1901) est reconnue d’intérêt général. 
+                Elle est donc habilitée à percevoir des dons et à émettre des reçus fiscaux.
+                Il y a plusieurs manières de faire un don :
+            </p>
+
+            <div class="donation-grid">
+                <!-- OPTION 1 : EN LIGNE -->
+                <div class="donation-card">
+                    <div class="action-icon" style="text-align:left; font-size: 2.5rem;">💳</div>
+                    <h3>En ligne</h3>
+                    <p>Vous pouvez faire un don spontané ou régulier via la plateforme HelloAsso en toute sécurité.</p>
+                    <a href="https://www.helloasso.com/associations/aider-son-prochain/formulaires/1?_gl=1*3s5wt3*_gcl_aw*R0NMLjE3NjQ4MzQ3NTcuQ2p3S0NBaUEzTF9KQmhBbEVpd0FsY1dPNTZOSENHUmtfOEx6ck9WV0VONHlLTVpmRUtkcC1EeWlXXzdycTVBSUNUWUJSQVJ5Z3dCcXN4b0M5OTRRQXZEX0J3RQ..*_gcl_au*MjA4NzM1NzM3NS4xNzYzOTk3NTQ2LjE0MjU1NTE1OTEuMTc2NTg3NDI5My4xNzY1ODc0Mjky" target="_blank" class="btn-donate-large">Je donne sur HelloAsso</a>
+                </div>
+
+                <!-- OPTION 2 : PAR CHÈQUE -->
+                <div class="donation-card">
+                    <div class="action-icon" style="text-align:left; font-size: 2.5rem;">✉️</div>
+                    <h3>Par chèque</h3>
+                    <p>À l’ordre de <strong>AIDER SON PROCHAIN</strong>.</p>
+                    <p>Envoyez votre don à l'adresse suivante :</p>
+                    <address>
+                        <strong>ASP - AIDER SON PROCHAIN</strong><br>
+                        24, rue Emile Zola<br>
+                        69200 Vénissieux
+                    </address>
+                </div>
+
+                <!-- OPTION 3 : PAR VIREMENT -->
+                <div class="donation-card">
+                    <div class="action-icon" style="text-align:left; font-size: 2.5rem;">💸</div>
+                    <h3>Par virement</h3>
+                    <p>Vous souhaitez effectuer un virement bancaire ? Contactez-nous pour obtenir nos coordonnées bancaires (RIB).</p>
+                    <a href="#contact-section" onclick="document.getElementById('contact-section').scrollIntoView({behavior: 'smooth'}); return false;" class="btn-donate-large">Demander notre RIB</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6 : CHIFFRES CLÉS -->
+        <section class="stats">
+            <h2>L'impact de votre générosité</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>2</h3>
+                    <p>Antennes (Paris, Annemasse)</p>
+                </div>
+                <div class="stat-item">
+                    <h3>100</h3>
+                    <p>Bénévoles engagés</p>
+                </div>
+                <div class="stat-item">
+                    <h3>85</h3>
+                    <p>Adhérents actifs</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7 : PRESSE -->
+        <section class="press-section">
+            <h2>La Presse parle de nous</h2>
+            <p style="text-align: center; margin-bottom: 30px; color: #666; font-size: 1rem;">Découvrez nos actions à travers les médias.</p>
+            
+            <div class="press-grid">
+                <!-- NOUVEL ARTICLE AJOUTÉ (2025) -->
+                <div class="press-card">
+                    <div>
+                        <div class="press-source">Le Progrès</div>
+                        <p style="font-size: 0.95rem; color: #777;">Fête de Noël à l'Hôpital des Massues...</p>
+                    </div>
+                    <a href="https://www.leprogres.fr/social/2025/12/20/fete-de-noel-a-l-hopital-les-massues-spectacles-et-cadeaux-illuminent-le-quotidien-des-enfants" target="_blank" class="btn-press">Lire l'article</a>
+                </div>
+
+                <!-- Le Progrès -->
+                <div class="press-card">
+                    <div>
+                        <div class="press-source">Le Progrès</div>
+                        <p style="font-size: 0.95rem; color: #777;">Sonia Lassoued préside...</p>
+                    </div>
+                    <a href="http://www.leprogres.fr/rhone/2016/02/01/sonia-lassoued-preside-l-association-aider-son-prochain" target="_blank" class="btn-press">Lire l'article</a>
+                </div>
+                <div class="press-card">
+                    <div>
+                        <div class="press-source">Le Progrès</div>
+                        <p style="font-size: 0.95rem; color: #777;">Une main tendue vers les enfants...</p>
+                    </div>
+                    <a href="https://www.leprogres.fr/rhone-69-edition-est-lyonnais/2018/01/02/association-asp-une-main-tendue-vers-les-enfants-et-les-plus-demunis" target="_blank" class="btn-press">Lire l'article</a>
+                </div>
+                <div class="press-card">
+                    <div>
+                        <div class="press-source">Le Progrès</div>
+                        <p style="font-size: 0.95rem; color: #777;">Lycéennes et jouets pour enfants...</p>
+                    </div>
+                    <a href="http://www.leprogres.fr/rhone-69-edition-est-lyonnais/2018/02/04/quatre-lyceennes-ont-collecte-des-jouets-pour-des-enfants-malades" target="_blank" class="btn-press">Lire l'article</a>
+                </div>
+                <div class="press-card">
+                    <div>
+                        <div class="press-source">Le Progrès</div>
+                        <p style="font-size: 0.95rem; color: #777;">Une paella caritative pour Ninon...</p>
+                    </div>
+                    <a href="https://www.leprogres.fr/edition-lyon-villeurbanne/2020/02/17/une-paella-caritative-a-ete-organisee-pour-ninon-2-ans" target="_blank" class="btn-press">Lire l'article</a>
+                </div>
+                <div class="press-card">
+                    <div>
+                        <div class="press-source">Le Progrès</div>
+                        <p style="font-size: 0.95rem; color: #777;">Gâte les personnels de cancérologie...</p>
+                    </div>
+                    <a href="https://www.leprogres.fr/edition-est-lyonnais/2020/04/25/aider-son-prochain-gate-les-personnels-de-cancerologie" target="_blank" class="btn-press">Lire l'article</a>
+                </div>
+
+                <!-- Expressions Venissieux -->
+                <div class="press-card">
+                    <div>
+                        <div class="press-source">Expressions Vénissieux</div>
+                        <p style="font-size: 0.95rem; color: #777;">Les bienveillantes d'ASP</p>
+                    </div>
+                    <a href="https://www.expressions-venissieux.fr/2015-12-15-les-bienveillantes-dasp/" target="_blank" class="btn-press">Lire l'article</a>
+                </div>
+                <div class="press-card">
+                    <div>
+                        <div class="press-source">Expressions Vénissieux</div>
+                        <p style="font-size: 0.95rem; color: #777;">Quatre drôles de dames</p>
+                    </div>
+                    <a href="https://www.expressions-venissieux.fr/2018-02-16-aider-son-prochain-quatre-droles-dames/" target="_blank" class="btn-press">Lire l'article</a>
+                </div>
+                <div class="press-card">
+                    <div>
+                        <div class="press-source">Expressions Vénissieux</div>
+                        <p style="font-size: 0.95rem; color: #777;">En voiture pour le bloc avec ASP</p>
+                    </div>
+                    <a href="https://www.expressions-venissieux.fr/2019-02-12-en-voiture-pour-le-bloc-avec-asp/" target="_blank" class="btn-press">Lire l'article</a>
+                </div>
+
+                <!-- Autres -->
+                <div class="press-card">
+                    <div>
+                        <div class="press-source">Le Figaro</div>
+                        <p style="font-size: 0.95rem; color: #777;">Le Ramadan révèle la précarité...</p>
+                    </div>
+                    <a href="https://www.lefigaro.fr/actualite-france/a-lyon-le-ramadan-revele-en-creux-la-precarite-etudiante-20210415" target="_blank" class="btn-press">Lire l'article</a>
+                </div>
+                <div class="press-card">
+                    <div>
+                        <div class="press-source">L'Équipe</div>
+                        <p style="font-size: 0.95rem; color: #777;">Houssem Aouar offre un dîner...</p>
+                    </div>
+                    <a href="https://www.lequipe.fr/Football/Actualites/Houssem-aouar-ol-offre-un-diner-pour-73-personnes/1329187" target="_blank" class="btn-press">Lire l'article</a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 8 : PARTENARIATS -->
+        <section class="partners-section">
+            <h2 style="text-align:center; font-size: 1.5rem; color: #D83A56; margin-bottom: 20px;">Nos Partenariats</h2>
+            <p style="text-align: center; margin-bottom: 20px; color: #666; font-size: 1rem;">Nous remercions chaleureusement nos partenaires et nos partenaires hospitaliers pour leur confiance.</p>
+            
+            <h3 style="text-align:center; font-size: 1.1rem; color: #D83A56; margin-bottom: 15px;">Entreprises qui nous soutiennent</h3>
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <div class="partner-name">Meliconi</div>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-name">Best of TV</div>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-name">New One</div>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-name">Muse</div>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-name">Lotronic</div>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-name">Park Events</div>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-name">Big Top</div>
+                </div>
+            </div>
+
+            <h3 style="text-align:center; font-size: 1.1rem; color: #D83A56; margin-bottom: 15px; margin-top: 30px;">Conventions Hospitalières</h3>
+            <div class="hospitals-grid">
+                <div class="hospital-card" style="display: flex; flex-direction: column; justify-content: center;">
+                    <span class="hospital-icon">🏥</span>
+                    <div class="hospital-name">iHOP</div>
+                    <div class="hospital-name" style="font-size: 0.9rem; color: #666; margin-top: 5px; border-top: 1px solid #eee; padding-top: 5px;">Centre Léon Bérard</div>
+                </div>
+                <div class="hospital-card">
+                    <span class="hospital-icon">🏥</span>
+                    <div class="hospital-name">Hôpital des Massues</div>
+                </div>
+                <div class="hospital-card">
+                    <span class="hospital-icon">🏛️</span>
+                    <div class="hospital-name">HCL - HFME</div>
+                </div>
+                <div class="hospital-card">
+                    <span class="hospital-icon">🏥</span>
+                    <div class="hospital-name">Hôpital Louis Pradel</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 9 : CONTACT -->
+        <section id="contact-section" class="contact-section">
+            <h2 style="text-align:center;">Contactez-nous</h2>
+            <div class="contact-container">
+                <form id="contactForm" onsubmit="sendContact(event)">
+                    <div class="form-group">
+                        <label for="contact-name">Votre Nom</label>
+                        <input type="text" id="contact-name" required placeholder="Votre nom complet">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">Votre Email</label>
+                        <input type="email" id="contact-email" required placeholder="exemple@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" rows="4" required placeholder="Votre message..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-donate-large">Envoyer le message</button>
+                    <p class="contact-note">* Ce formulaire ouvrira votre logiciel de messagerie pour envoyer l'email.</p>
+                </form>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <p>&copy; 2014 Association Aider Son Prochain (ASP) - <a href="https://annuaire-entreprises.data.gouv.fr/documents/837640259" target="_blank" style="text-decoration: underline;">Loi 1901</a></p>
+            
+            <div class="footer-actions">
+                <a href="https://www.instagram.com/asp_aider_son_prochain/" target="_blank" aria-label="Suivez-nous sur Instagram">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png" alt="Instagram" class="social-icon">
+                </a>
+                <a href="#" onclick="document.getElementById('login-screen').style.display='flex'; return false;">Espace Membres</a>
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+
+<!-- =========================================
+     APPLICATION COMPTA ASSO (CACHÉE)
+     ========================================= -->
+
+<!-- ÉCRAN DE CONNEXION -->
+<div id="login-screen">
+    <div class="login-box">
+        <h2 style="margin-bottom: 15px;">Compta Asso</h2>
+        <p style="color: #666; font-size: 1rem; margin-bottom: 20px;">Veuillez vous identifier</p>
+        <input type="password" id="login-pass" placeholder="Mot de passe">
+        <button class="login-btn" onclick="checkLogin()">Entrer</button>
+        <button style="margin-top:15px; background:none; border:none; text-decoration:underline; color:#666; cursor:pointer; font-size: 1rem;" onclick="document.getElementById('login-screen').style.display='none';">Annuler</button>
+        <div id="login-error" class="login-error">Mot de passe incorrect</div>
+    </div>
+</div>
+
+<!-- WRAPPER DE L'APPLICATION (Caché par défaut) -->
+<div id="app-content" class="hidden">
+
+<header>
+    <h1>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+        Compta Asso
+    </h1>
+    <button onclick="logout()" style="background:none; border:none; color:#D83A56; cursor:pointer; font-size:1rem;">Quitter</button>
+</header>
+
+<main class="container">
+    <div class="stats">
+        <div class="card">
+            <h3>Recettes (Session)</h3>
+            <div class="val green" id="stat-income">0 €</div>
+        </div>
+        <div class="card">
+            <h3>Dépenses (Session)</h3>
+            <div class="val red" id="stat-expense">0 €</div>
+        </div>
+    </div>
+
+    <div class="form-box">
+        <h2 style="margin-bottom: 2rem;">Saisir une opération</h2>
+        <form id="comptaForm">
+            
+            <div class="form-group">
+                <label>Type</label>
+                <div class="type-group">
+                    <button type="button" id="btn-expense" class="type-btn active" onclick="setType('expense')">Dépense</button>
+                    <button type="button" id="btn-income" class="type-btn" onclick="setType('income')">Recette</button>
+                </div>
+                <input type="hidden" id="t-type" value="expense">
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" id="t-desc" placeholder="Ex: Courses, Achat matériel..." required>
+            </div>
+
+            <div class="form-group">
+                <label>Qui a payé ?</label>
+                <input type="text" id="t-payer" placeholder="Ex: Michel, Sophie..." required>
+            </div>
+
+            <div class="form-group">
+                <label>Mode de règlement</label>
+                <select id="t-payment">
+                    <option value="Non défini">Choisir...</option>
+                    <option value="Virement">Virement</option>
+                    <option value="Espèce">Espèce</option>
+                    <option value="Chèque">Chèque</option>
+                    <option value="Carte">Carte Bancaire</option>
+                    <option value="Prélèvement">Prélèvement</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Montant (€)</label>
+                <input type="number" step="0.01" id="t-amount" placeholder="0.00" required>
+            </div>
+
+            <div class="form-group">
+                <label>Catégorie</label>
+                <select id="t-category"></select>
+            </div>
+
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" id="t-date" required>
+            </div>
+
+            <div class="form-group">
+                <label>Justificatif (Photo)</label>
+                <div class="file-upload-wrapper" onclick="document.getElementById('t-file').click()">
+                    <input type="file" id="t-file" accept="image/*" capture="environment" onchange="handleFileSelect(this)">
+                    <div id="upload-text">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#999;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                        <br>Toucher pour scanner
+                    </div>
+                    <img id="file-preview" alt="Aperçu">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                Envoyer vers Google Sheets
+            </button>
+        </form>
+    </div>
+</main>
+
+<div id="toast" class="toast">Message</div>
+
+</div> <!-- Fin de app-content -->
+
+<script>
+    // ============================================================
+    // FONCTION FORMULAIRE DE CONTACT
+    // ============================================================
+    function sendContact(event) {
+        event.preventDefault(); // Empêche le rechargement de la page
+
+        // Récupération des valeurs
+        const nom = document.getElementById('contact-name').value;
+        const email = document.getElementById('contact-email').value;
+        const msg = document.getElementById('contact-message').value;
+
+        // Construction du lien mailto
+        // %0D%0A permet de faire des sauts de ligne dans le corps de l'email
+        const sujet = "Message depuis le site ASP";
+        const corps = "Nom: " + nom + "%0D%0A" + 
+                     "Email: " + email + "%0D%0A" + 
+                     "%0D%0AMessage:%0D%0A" + msg;
+
+        // Ouverture du client mail
+        window.location.href = "mailto:polemedical@aidersonprochain.fr?subject=" + encodeURIComponent(sujet) + "&body=" + encodeURIComponent(corps);
+    }
+
+    // ============================================================
+    // CONFIGURATION COMPTA ASSO
+    // ============================================================
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0mLHxA8NRnQtaFAOivHz2DPqo-NZN7sV5LYRCmT_AvaYl68_kVSh7SjYBOU2BhysG/exec"; 
+
+    // --- CONFIGURATION MOT DE PASSE (SÉCURISÉE) ---
+    // Le mot de passe "kiwi@69200" est caché dans des codes ASCII
+    // k=107, i=105, w=119, i=105, @=64, 6=54, 9=57, 2=50, 0=48, 0=48
+    const codes = [107, 105, 119, 105, 64, 54, 57, 50, 48, 48];
+    const monMotDePasse = String.fromCharCode(...codes);
+
+    // --- LOGIQUE CONNEXION ---
+    function checkLogin() {
+        const input = document.getElementById('login-pass').value;
+        const errorMsg = document.getElementById('login-error');
+
+        if (input === monMotDePasse) {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('app-content').classList.remove('hidden');
+            // Cacher le site public pour éviter la confusion
+            document.querySelector('.container-public').style.display = 'none';
+            localStorage.setItem('compta_auth', 'true');
+        } else {
+            errorMsg.style.display = 'block';
+            document.getElementById('login-pass').value = '';
+            document.getElementById('login-pass').focus();
+        }
+    }
+
+    function logout() {
+        localStorage.removeItem('compta_auth');
+        document.getElementById('app-content').classList.add('hidden');
+        document.getElementById('login-screen').style.display = 'none';
+        document.querySelector('.container-public').style.display = 'flex';
+    }
+
+    if (localStorage.getItem('compta_auth') === 'true') {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('app-content').classList.remove('hidden');
+        document.querySelector('.container-public').style.display = 'none';
+    }
+
+    document.getElementById('login-pass').addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            checkLogin();
+        }
+    });
+
+    // --- LOGIQUE APPLICATION ---
+    const categories = {
+        expense: ['Pôle social', 'Pôle médical'], 
+        income: ['Cotisations', 'Subventions', 'Dons', 'Autres']
+    };
+
+    let currentType = 'expense';
+    let selectedFile = null;
+    let sessionStats = { income: 0, expense: 0 };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('t-date').valueAsDate = new Date();
+        updateCategories();
+        renderStats();
+    });
+
+    function setType(type) {
+        currentType = type;
+        document.getElementById('t-type').value = type;
+        
+        const btnExp = document.getElementById('btn-expense');
+        const btnInc = document.getElementById('btn-income');
+        
+        if(type === 'expense') {
+            btnExp.style.background = '#ffebee'; btnExp.style.borderColor = '#e74c3c'; 
+            btnInc.style.background = 'white'; btnInc.style.borderColor = '#ddd';
+        } else {
+            btnInc.style.background = '#e8f5e9'; btnInc.style.borderColor = '#0F9D58'; 
+            btnExp.style.background = 'white'; btnExp.style.borderColor = '#ddd';
+        }
+        updateCategories();
+    }
+
+    function updateCategories() {
+        const select = document.getElementById('t-category');
+        select.innerHTML = '';
+        categories[currentType].forEach(cat => {
+            const opt = document.createElement('option');
+            opt.value = cat; opt.textContent = cat;
+            select.appendChild(opt);
+        });
+    }
+
+    function handleFileSelect(input) {
+        if (input.files && input.files[0]) {
+            selectedFile = input.files[0];
+            document.getElementById('upload-text').style.display = 'none';
+            const img = document.getElementById('file-preview');
+            img.src = URL.createObjectURL(selectedFile);
+            img.style.display = 'inline-block';
+        }
+    }
+
+    function renderStats() {
+        document.getElementById('stat-income').textContent = sessionStats.income.toFixed(2) + ' €';
+        document.getElementById('stat-expense').textContent = sessionStats.expense.toFixed(2) + ' €';
+    }
+
+    function showToast(msg, type) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.style.borderLeft = type === 'error' ? '5px solid #e74c3c' : '5px solid #0F9D58';
+        t.className = 'toast show';
+        setTimeout(() => t.className = 'toast', 3000);
+    }
+
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            const parts = reader.result.split(',');
+            resolve({ data: parts[1], type: parts[0].match(/:(.*?);/)[1] });
+        };
+        reader.onerror = error => reject(error);
+    });
+
+    document.getElementById('comptaForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const scriptUrl = GOOGLE_SCRIPT_URL; 
+
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true; btn.innerHTML = 'Envoi...';
+
+        const payload = {
+            id: Date.now(),
+            type: document.getElementById('t-type').value,
+            desc: document.getElementById('t-desc').value,
+            payer: document.getElementById('t-payer').value,
+            payment: document.getElementById('t-payment').value,
+            amount: document.getElementById('t-amount').value,
+            category: document.getElementById('t-category').value,
+            date: document.getElementById('t-date').value,
+            file: null
+        };
+
+        if (selectedFile) {
+            try { payload.file = await toBase64(selectedFile); }
+            catch (err) { showToast("Erreur lecture image", 'error'); btn.disabled = false; btn.innerHTML = 'Réessayer'; return; }
+        }
+
+        try {
+            const response = await fetch(scriptUrl + "?t=" + new Date().getTime(), {
+                method: 'POST', redirect: 'follow', mode: 'cors',
+                headers: { 'Content-Type': 'text/plain' }, 
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+            
+            if (result.result === 'success') {
+                showToast("Envoyé !", 'success');
+                document.getElementById('comptaForm').reset();
+                document.getElementById('t-date').valueAsDate = new Date();
+                setType('expense');
+                document.getElementById('file-preview').style.display = 'none';
+                document.getElementById('upload-text').style.display = 'block';
+                selectedFile = null;
+                
+                const val = parseFloat(payload.amount);
+                if (payload.type === 'income') sessionStats.income += val;
+                else sessionStats.expense += val;
+                renderStats();
+            } else {
+                showToast("Erreur: " + result.error, 'error');
+            }
+        } catch (err) {
+            showToast("Erreur de connexion", 'error');
+            console.error(err);
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> Envoyer vers Google Sheets';
+        }
+    });
+</script>
+</body>
+</html>
