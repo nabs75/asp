@@ -45,7 +45,7 @@
             max-width: 960px;
             margin: 0 auto;
             padding: 0 20px;
-            flex: 1; /* Pousse le footer en bas si peu de contenu */
+            flex: 1; /* Pousse le footer en bas */
             display: flex;
             flex-direction: column;
         }
@@ -105,7 +105,7 @@
         }
 
         .brand-hero-text {
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             font-weight: 900;
             color: #ffffff; 
             text-transform: uppercase;
@@ -117,10 +117,10 @@
         .hero h1 { color: #ffffff; font-size: 2.2rem; margin-bottom: 15px; font-weight: 700; text-shadow: 0 2px 10px rgba(0,0,0,0.1); line-height: 1.2;}
         .hero p { font-size: 1.1rem; color: #ffffff; max-width: 600px; margin: 0 auto 20px auto; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
 
-        .btn-group { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .btn-group { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
 
         .btn {
-            padding: 12px 25px; text-decoration: none; border-radius: 50px; font-weight: bold;
+            padding: 12px 30px; text-decoration: none; border-radius: 50px; font-weight: bold;
             transition: transform 0.3s, box-shadow 0.3s; display: inline-block;
             font-size: 1rem;
             border: none;
@@ -149,11 +149,11 @@
             border-radius: 0 20px 20px 0;
             box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
-        .history-text { font-size: 1.1rem; color: #444; margin-bottom: 30px; text-align: justify; }
+        .history-text { font-size: 1.05rem; color: #444; margin-bottom: 30px; text-align: justify; }
         .poles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; margin-bottom: 30px; }
         .pole-card { background-color: #fff; border: 1px solid #ffeeee; border-radius: 20px; padding: 30px; text-align: center; box-shadow: 0 5px 15px rgba(255, 153, 102, 0.1); transition: transform 0.3s; }
         .pole-card:hover { transform: translateY(-5px); }
-        .pole-card h3 { color: #FF5E62; margin-bottom: 10px; font-size: 1.4rem; }
+        .pole-card h3 { color: #FF5E62; margin-bottom: 15px; font-size: 1.4rem; }
         .current-state { text-align: center; background: linear-gradient(135deg, #fff5f5, #fff0f0); padding: 25px; border-radius: 20px; color: #D83A56; font-weight: 600; border: 1px solid #ffe0e0; }
 
         /* --- SECTIONS POLES --- */
@@ -161,7 +161,7 @@
         .pole-intro { text-align: center; margin-bottom: 40px; color: #555; font-size: 1.1rem; }
         .tag-exclusive { background: linear-gradient(45deg, #FF9966, #FF5E62); color: white; font-size: 0.8rem; padding: 5px 20px; border-radius: 30px; vertical-align: middle; margin-left: 10px; text-transform: uppercase; font-weight: bold; box-shadow: 0 2px 5px rgba(221, 36, 118, 0.2); }
         
-        .action-grid { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; }
+        .action-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
         .action-card { background: white; border: 1px solid #fff; border-radius: 20px; padding: 30px; width: 100%; max-width: 350px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: all 0.3s ease; position: relative; overflow: hidden; }
         .action-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(255, 94, 98, 0.15); border-color: #ffe0e0; }
         .action-icon { font-size: 3rem; margin-bottom: 20px; text-align: center; }
@@ -186,11 +186,11 @@
             display: inline-block; 
             font-weight: bold; 
             font-size: 1.2rem; 
-            margin-bottom: 25px; 
+            margin-bottom: 30px; 
             box-shadow: 0 5px 15px rgba(255, 94, 98, 0.4);
         }
-        .donation-text { max-width: 800px; margin: 0 auto 25px auto; color: #555; font-size: 1.1rem; }
-        .donation-grid { display: flex; flex-direction: column; gap: 25px; margin-top: 25px; align-items: center; }
+        .donation-text { max-width: 800px; margin: 0 auto 30px auto; color: #555; font-size: 1.1rem; }
+        .donation-grid { display: flex; flex-direction: column; gap: 30px; margin-top: 30px; align-items: center; }
         .donation-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); width: 100%; max-width: 400px; text-align: left; border-top: 5px solid #ff9966; transition: 0.3s; }
         .donation-card:hover { transform: translateY(-5px); }
         .donation-card h3 { color: #D83A56; margin-bottom: 20px; font-size: 1.4rem; }
@@ -213,16 +213,16 @@
             margin-bottom: 60px; 
             box-shadow: 0 10px 30px rgba(78, 67, 118, 0.2);
         }
-        .stats h2 { color: white; font-size: 2rem; margin-bottom: 30px; }
+        .stats h2 { color: white; font-size: 2rem; }
         .stats h2::after { background: rgba(255,255,255,0.5); }
         
         .stats-grid { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; }
-        .stat-item h3 { font-size: 2.8rem; font-weight: 800; color: #ff9966; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .stat-item h3 { font-size: 3rem; font-weight: 800; color: #ff9966; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .stat-item p { font-size: 1rem; opacity: 0.9; letter-spacing: 1px; text-transform: uppercase; font-size: 0.8rem; }
 
         /* --- PRESSE --- */
         .press-section { margin-bottom: 60px; padding: 40px 20px; background: linear-gradient(to bottom, #ffffff, #fdfdfd); border-radius: 20px; }
-        .press-grid { display: grid; grid-template-columns: 1fr; gap: 25px; }
+        .press-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
         .press-card { background: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; height: 100%; border-top: 4px solid #D83A56; transition: transform 0.3s; }
         .press-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(216, 58, 86, 0.15); }
         .press-source { font-weight: 700; font-size: 1.1rem; color: #333; margin-bottom: 10px; }
@@ -257,7 +257,7 @@
             text-align: center; 
             font-size: 1rem; 
             color: #888; 
-            padding: 20px 0 40px 0; 
+            padding: 20px 0 30px 0; 
             margin-top: auto; /* Pousse le footer en bas */
             border-top: 1px solid #ffe0e0; 
             width: 100%; 
@@ -290,26 +290,20 @@
         @media (max-width: 768px) {
             .container { padding: 0 15px; }
             .brand-hero-text { font-size: 1.6rem; }
-            .hero { padding: 30px 15px 40px 15px; }
+            .hero { padding: 30px 15px; }
             .hero-logo { max-width: 200px; }
             .hero h1 { font-size: 1.6rem; }
             .hero p { font-size: 1rem; margin-bottom: 15px; }
             .btn-group { gap: 15px; }
             .btn { padding: 10px 20px; font-size: 0.9rem; }
             .poles-grid { grid-template-columns: 1fr; }
+            .action-grid { gap: 25px; }
             .action-card { width: 100%; }
-            .donation-section { padding: 30px 15px; }
             .donation-grid { grid-template-columns: 1fr; }
-            .donation-card { width: 100%; }
-            .stats { padding: 30px 15px; }
-            .stats h2 { font-size: 1.6rem; }
             .stats-grid { gap: 30px; }
-            .stat-item h3 { font-size: 2.2rem; }
-            .press-grid { grid-template-columns: 1fr; }
+            .stat-item h3 { font-size: 2.5rem; }
             .partners-grid { grid-template-columns: 1fr; }
             .hospitals-grid { grid-template-columns: 1fr; }
-            .contact-section { padding: 30px 15px; }
-            .contact-container { padding: 20px; }
         }
 
         /* =========================================
@@ -328,8 +322,8 @@
         /* Login Screen */
         #login-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #D83A56; z-index: 10000;
-            display: none;
+            background: #D83A56; z-index: 9999;
+            display: none; /* Standard display none */
             align-items: center; justify-content: center;
         }
         .login-box {
@@ -340,7 +334,15 @@
         .login-btn { width: 100%; padding: 15px; background: var(--accent); color: white; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer; font-weight: bold; }
         .login-error { color: var(--danger); font-size: 1rem; margin-top: 15px; display: none; }
         
-        #app-content { display: none; z-index: 9999; position: relative; background: #fffbfb; min-height: 100vh; padding-bottom: 0; width: 100%; }
+        #app-content { 
+            display: none; /* Standard display none */
+            z-index: 10000; /* Z-index supérieur pour être sûr */
+            position: fixed; top: 0; left: 0; 
+            background: #fffbfb; 
+            height: 100%; width: 100%; 
+            padding-bottom: 0; 
+            overflow-y: auto;
+        }
         .hidden { display: none !important; }
 
         #app-content header { background: white; padding: 1.2rem; box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; }
@@ -355,7 +357,7 @@
         #app-content .stats .card .val.green { color: var(--accent); }
         #app-content .stats .card .val.red { color: var(--danger); }
 
-        #app-content .form-box { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: var(--shadow); }
+        #app-content .form-box { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 40px; }
         #app-content .form-group { margin-bottom: 1.2rem; }
         #app-content label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 1rem; }
         #app-content input, #app-content select { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
@@ -373,7 +375,7 @@
         #app-content .btn-submit:hover { transform: translateY(-2px); }
         #app-content .btn-submit:disabled { background: #ccc; cursor: not-allowed; transform: none; }
 
-        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #333; color: white; padding: 12px 24px; border-radius: 50px; transition: 0.3s; opacity: 0; z-index: 20000; text-align: center; width: 90%; max-width: 350px; }
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #333; color: white; padding: 12px 24px; border-radius: 50px; transition: 0.3s; opacity: 0; z-index: 20001; text-align: center; width: 90%; max-width: 350px; }
         .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
     </style>
@@ -554,7 +556,6 @@
                     </div>
                     <a href="https://www.leprogres.fr/social/2025/12/20/fete-de-noel-a-l-hopital-les-massues-spectacles-et-cadeaux-illuminent-le-quotidien-des-enfants" target="_blank" class="btn-press">Lire l'article</a>
                 </div>
-
                 <!-- Le Progrès -->
                 <div class="press-card">
                     <div>
@@ -636,10 +637,11 @@
 
         <!-- SECTION 8 : PARTENARIATS -->
         <section class="partners-section">
-            <h2 style="text-align:center; font-size: 1.5rem; color: #D83A56; margin-bottom: 20px;">Nos Partenariats</h2>
-            <p style="text-align: center; margin-bottom: 20px; color: #666; font-size: 1rem;">Nous remercions chaleureusement nos partenaires et nos partenaires hospitaliers pour leur confiance.</p>
+            <h2 style="text-align:center; font-size: 2rem; color: #D83A56; margin-bottom: 30px;">Nos Partenariats</h2>
+            <p style="text-align: center; margin-bottom: 30px; color: #666; font-size: 1rem;">Nous remercions chaleureusement nos partenaires et nos partenaires hospitaliers pour leur confiance.</p>
             
-            <h3 style="text-align:center; font-size: 1.1rem; color: #D83A56; margin-bottom: 15px;">Entreprises qui nous soutiennent</h3>
+            <!-- Grille Partenaires -->
+            <h3 style="text-align:center; font-size: 1.2rem; color: #D83A56; margin-bottom: 20px;">Entreprises qui nous soutiennent</h3>
             <div class="partners-grid">
                 <div class="partner-card">
                     <div class="partner-name">Meliconi</div>
@@ -664,12 +666,13 @@
                 </div>
             </div>
 
-            <h3 style="text-align:center; font-size: 1.1rem; color: #D83A56; margin-bottom: 15px; margin-top: 30px;">Conventions Hospitalières</h3>
+            <!-- Grille Hôpitaux -->
+            <h3 style="text-align:center; font-size: 1.2rem; color: #D83A56; margin-bottom: 20px; margin-top: 40px;">Conventions Hospitalières</h3>
             <div class="hospitals-grid">
                 <div class="hospital-card" style="display: flex; flex-direction: column; justify-content: center;">
                     <span class="hospital-icon">🏥</span>
                     <div class="hospital-name">iHOP</div>
-                    <div class="hospital-name" style="font-size: 0.9rem; color: #666; margin-top: 5px; border-top: 1px solid #eee; padding-top: 5px;">Centre Léon Bérard</div>
+                    <div class="hospital-name" style="font-size: 1rem; color: #666; margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px;">Centre Léon Bérard</div>
                 </div>
                 <div class="hospital-card">
                     <span class="hospital-icon">🏥</span>
@@ -717,7 +720,8 @@
                 <a href="https://www.instagram.com/asp_aider_son_prochain/" target="_blank" aria-label="Suivez-nous sur Instagram">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png" alt="Instagram" class="social-icon">
                 </a>
-                <a href="#" onclick="document.getElementById('login-screen').style.display='flex'; return false;">Espace Membres</a>
+                <!-- Ajout de l'ID pour le lien -->
+                <a href="#" id="btn-espace-membres" style="text-decoration: underline;">Espace Membres</a>
             </div>
         </footer>
 
@@ -736,7 +740,7 @@
         <p style="color: #666; font-size: 1rem; margin-bottom: 20px;">Veuillez vous identifier</p>
         <input type="password" id="login-pass" placeholder="Mot de passe">
         <button class="login-btn" onclick="checkLogin()">Entrer</button>
-        <button style="margin-top:15px; background:none; border:none; text-decoration:underline; color:#666; cursor:pointer; font-size: 1rem;" onclick="document.getElementById('login-screen').style.display='none';">Annuler</button>
+        <button style="margin-top:15px; background:none; border:none; text-decoration:underline; color:#666; cursor:pointer; font-size: 1rem;" onclick="closeLoginScreen()">Annuler</button>
         <div id="login-error" class="login-error">Mot de passe incorrect</div>
     </div>
 </div>
@@ -840,25 +844,31 @@
 
 <script>
     // ============================================================
-    // FONCTION FORMULAIRE DE CONTACT
+    // FONCTION FORMULAIRE DE CONTACT (FIXE)
     // ============================================================
     function sendContact(event) {
         event.preventDefault(); // Empêche le rechargement de la page
 
-        // Récupération des valeurs
         const nom = document.getElementById('contact-name').value;
         const email = document.getElementById('contact-email').value;
         const msg = document.getElementById('contact-message').value;
 
-        // Construction du lien mailto
-        // %0D%0A permet de faire des sauts de ligne dans le corps de l'email
         const sujet = "Message depuis le site ASP";
         const corps = "Nom: " + nom + "%0D%0A" + 
                      "Email: " + email + "%0D%0A" + 
                      "%0D%0AMessage:%0D%0A" + msg;
 
-        // Ouverture du client mail
         window.location.href = "mailto:polemedical@aidersonprochain.fr?subject=" + encodeURIComponent(sujet) + "&body=" + encodeURIComponent(corps);
+    }
+
+    // Fonction pour ouvrir l'écran de login (appelée par JS)
+    function openLoginScreen() {
+        document.getElementById('login-screen').style.display = 'flex';
+    }
+
+    // Fonction pour fermer l'écran de login (annuler)
+    function closeLoginScreen() {
+        document.getElementById('login-screen').style.display = 'none';
     }
 
     // ============================================================
@@ -868,7 +878,6 @@
 
     // --- CONFIGURATION MOT DE PASSE (SÉCURISÉE) ---
     // Le mot de passe "kiwi@69200" est caché dans des codes ASCII
-    // k=107, i=105, w=119, i=105, @=64, 6=54, 9=57, 2=50, 0=48, 0=48
     const codes = [107, 105, 119, 105, 64, 54, 57, 50, 48, 48];
     const monMotDePasse = String.fromCharCode(...codes);
 
@@ -897,11 +906,29 @@
         document.querySelector('.container-public').style.display = 'flex';
     }
 
-    if (localStorage.getItem('compta_auth') === 'true') {
-        document.getElementById('login-screen').style.display = 'none';
-        document.getElementById('app-content').classList.remove('hidden');
-        document.querySelector('.container-public').style.display = 'none';
-    }
+    // Initialisation au chargement de la page
+    document.addEventListener('DOMContentLoaded', () => {
+        // Attacher l'événement click au lien "Espace Membres" via JS
+        const btnLogin = document.getElementById('btn-espace-membres');
+        if (btnLogin) {
+            btnLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                openLoginScreen();
+            });
+        }
+
+        // Vérifier si l'utilisateur est déjà connecté
+        if (localStorage.getItem('compta_auth') === 'true') {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('app-content').classList.remove('hidden');
+            document.querySelector('.container-public').style.display = 'none';
+        }
+
+        // Initialisation du formulaire Compta
+        document.getElementById('t-date').valueAsDate = new Date();
+        updateCategories();
+        renderStats();
+    });
 
     document.getElementById('login-pass').addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
@@ -919,12 +946,6 @@
     let currentType = 'expense';
     let selectedFile = null;
     let sessionStats = { income: 0, expense: 0 };
-
-    document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('t-date').valueAsDate = new Date();
-        updateCategories();
-        renderStats();
-    });
 
     function setType(type) {
         currentType = type;
