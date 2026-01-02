@@ -36,7 +36,7 @@
             width: 100%;
             min-height: 100vh;
             display: flex;
-            flex-direction: column; /* Colonne pour footer en bas */
+            flex-direction: column;
             position: relative;
         }
 
@@ -45,7 +45,7 @@
             max-width: 960px;
             margin: 0 auto;
             padding: 0 20px;
-            flex: 1; /* Pousse le footer en bas */
+            flex: 1;
             display: flex;
             flex-direction: column;
         }
@@ -114,13 +114,13 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        .hero h1 { color: #ffffff; font-size: 2.2rem; margin-bottom: 15px; font-weight: 700; text-shadow: 0 2px 10px rgba(0,0,0,0.1); line-height: 1.2;}
+        .hero h1 { color: #ffffff; font-size: 2.2rem; margin-bottom: 15px; font-weight: 700; text-shadow: 0 2px 10px rgba(0,0,0,0.1); line-height: 1.2; }
         .hero p { font-size: 1.1rem; color: #ffffff; max-width: 600px; margin: 0 auto 20px auto; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
 
-        .btn-group { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .btn-group { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
 
         .btn {
-            padding: 12px 30px; text-decoration: none; border-radius: 50px; font-weight: bold;
+            padding: 12px 25px; text-decoration: none; border-radius: 50px; font-weight: bold;
             transition: transform 0.3s, box-shadow 0.3s; display: inline-block;
             font-size: 1rem;
             border: none;
@@ -161,7 +161,7 @@
         .pole-intro { text-align: center; margin-bottom: 40px; color: #555; font-size: 1.1rem; }
         .tag-exclusive { background: linear-gradient(45deg, #FF9966, #FF5E62); color: white; font-size: 0.8rem; padding: 5px 20px; border-radius: 30px; vertical-align: middle; margin-left: 10px; text-transform: uppercase; font-weight: bold; box-shadow: 0 2px 5px rgba(221, 36, 118, 0.2); }
         
-        .action-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .action-grid { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; }
         .action-card { background: white; border: 1px solid #fff; border-radius: 20px; padding: 30px; width: 100%; max-width: 350px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: all 0.3s ease; position: relative; overflow: hidden; }
         .action-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(255, 94, 98, 0.15); border-color: #ffe0e0; }
         .action-icon { font-size: 3rem; margin-bottom: 20px; text-align: center; }
@@ -190,7 +190,7 @@
             box-shadow: 0 5px 15px rgba(255, 94, 98, 0.4);
         }
         .donation-text { max-width: 800px; margin: 0 auto 30px auto; color: #555; font-size: 1.1rem; }
-        .donation-grid { display: flex; flex-direction: column; gap: 30px; margin-top: 30px; align-items: center; }
+        .donation-grid { display: flex; flex-direction: column; gap: 25px; margin-top: 25px; align-items: center; }
         .donation-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); width: 100%; max-width: 400px; text-align: left; border-top: 5px solid #ff9966; transition: 0.3s; }
         .donation-card:hover { transform: translateY(-5px); }
         .donation-card h3 { color: #D83A56; margin-bottom: 20px; font-size: 1.4rem; }
@@ -217,7 +217,7 @@
         .stats h2::after { background: rgba(255,255,255,0.5); }
         
         .stats-grid { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; }
-        .stat-item h3 { font-size: 3rem; font-weight: 800; color: #ff9966; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .stat-item h3 { font-size: 2.8rem; font-weight: 800; color: #ff9966; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .stat-item p { font-size: 1rem; opacity: 0.9; letter-spacing: 1px; text-transform: uppercase; font-size: 0.8rem; }
 
         /* --- PRESSE --- */
@@ -258,9 +258,9 @@
             font-size: 1rem; 
             color: #888; 
             padding: 20px 0 30px 0; 
-            margin-top: auto; /* Pousse le footer en bas */
-            border-top: 1px solid #ffe0e0; 
+            margin-top: auto;
             width: 100%; 
+            border-top: 1px solid #ffe0e0; 
         }
         .footer p { margin-bottom: 10px; }
         .footer a { color: #D83A56; text-decoration: none; transition: 0.3s; }
@@ -290,14 +290,11 @@
         @media (max-width: 768px) {
             .container { padding: 0 15px; }
             .brand-hero-text { font-size: 1.6rem; }
-            .hero { padding: 30px 15px; }
-            .hero-logo { max-width: 200px; }
             .hero h1 { font-size: 1.6rem; }
             .hero p { font-size: 1rem; margin-bottom: 15px; }
             .btn-group { gap: 15px; }
             .btn { padding: 10px 20px; font-size: 0.9rem; }
             .poles-grid { grid-template-columns: 1fr; }
-            .action-grid { gap: 25px; }
             .action-card { width: 100%; }
             .donation-grid { grid-template-columns: 1fr; }
             .stats-grid { gap: 30px; }
@@ -310,7 +307,6 @@
            STYLE COMPTA ASSO (INTÉGRÉ)
            ========================================= */
         
-        /* Variables Application */
         #login-screen, #app-content {
             --primary: #D83A56;
             --secondary: #4e4376;
@@ -322,7 +318,7 @@
         /* Login Screen */
         #login-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #D83A56; z-index: 9999;
+            background: #D83A56; z-index: 10000;
             display: none; /* Standard display none */
             align-items: center; justify-content: center;
         }
@@ -336,12 +332,12 @@
         
         #app-content { 
             display: none; /* Standard display none */
-            z-index: 10000; /* Z-index supérieur pour être sûr */
-            position: fixed; top: 0; left: 0; 
+            z-index: 9999; 
+            position: relative; 
             background: #fffbfb; 
-            height: 100%; width: 100%; 
-            padding-bottom: 0; 
-            overflow-y: auto;
+            min-height: 100vh; 
+            padding-bottom: 50px; 
+            width: 100%; 
         }
         .hidden { display: none !important; }
 
@@ -357,7 +353,7 @@
         #app-content .stats .card .val.green { color: var(--accent); }
         #app-content .stats .card .val.red { color: var(--danger); }
 
-        #app-content .form-box { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 40px; }
+        #app-content .form-box { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: var(--shadow); }
         #app-content .form-group { margin-bottom: 1.2rem; }
         #app-content label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 1rem; }
         #app-content input, #app-content select { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
@@ -375,7 +371,7 @@
         #app-content .btn-submit:hover { transform: translateY(-2px); }
         #app-content .btn-submit:disabled { background: #ccc; cursor: not-allowed; transform: none; }
 
-        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #333; color: white; padding: 12px 24px; border-radius: 50px; transition: 0.3s; opacity: 0; z-index: 20001; text-align: center; width: 90%; max-width: 350px; }
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #333; color: white; padding: 12px 24px; border-radius: 50px; transition: 0.3s; opacity: 0; z-index: 20000; text-align: center; width: 90%; max-width: 350px; }
         .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
     </style>
@@ -556,6 +552,7 @@
                     </div>
                     <a href="https://www.leprogres.fr/social/2025/12/20/fete-de-noel-a-l-hopital-les-massues-spectacles-et-cadeaux-illuminent-le-quotidien-des-enfants" target="_blank" class="btn-press">Lire l'article</a>
                 </div>
+
                 <!-- Le Progrès -->
                 <div class="press-card">
                     <div>
@@ -640,7 +637,6 @@
             <h2 style="text-align:center; font-size: 2rem; color: #D83A56; margin-bottom: 30px;">Nos Partenariats</h2>
             <p style="text-align: center; margin-bottom: 30px; color: #666; font-size: 1rem;">Nous remercions chaleureusement nos partenaires et nos partenaires hospitaliers pour leur confiance.</p>
             
-            <!-- Grille Partenaires -->
             <h3 style="text-align:center; font-size: 1.2rem; color: #D83A56; margin-bottom: 20px;">Entreprises qui nous soutiennent</h3>
             <div class="partners-grid">
                 <div class="partner-card">
@@ -666,7 +662,6 @@
                 </div>
             </div>
 
-            <!-- Grille Hôpitaux -->
             <h3 style="text-align:center; font-size: 1.2rem; color: #D83A56; margin-bottom: 20px; margin-top: 40px;">Conventions Hospitalières</h3>
             <div class="hospitals-grid">
                 <div class="hospital-card" style="display: flex; flex-direction: column; justify-content: center;">
@@ -720,8 +715,8 @@
                 <a href="https://www.instagram.com/asp_aider_son_prochain/" target="_blank" aria-label="Suivez-nous sur Instagram">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png" alt="Instagram" class="social-icon">
                 </a>
-                <!-- Ajout de l'ID pour le lien -->
-                <a href="#" id="btn-espace-membres" style="text-decoration: underline;">Espace Membres</a>
+                <!-- Lien simple pour ouvrir l'écran de login -->
+                <a href="#" onclick="document.getElementById('login-screen').style.display='flex'; return false;" style="text-decoration: underline;">Espace Membres</a>
             </div>
         </footer>
 
@@ -740,7 +735,7 @@
         <p style="color: #666; font-size: 1rem; margin-bottom: 20px;">Veuillez vous identifier</p>
         <input type="password" id="login-pass" placeholder="Mot de passe">
         <button class="login-btn" onclick="checkLogin()">Entrer</button>
-        <button style="margin-top:15px; background:none; border:none; text-decoration:underline; color:#666; cursor:pointer; font-size: 1rem;" onclick="closeLoginScreen()">Annuler</button>
+        <button style="margin-top:15px; background:none; border:none; text-decoration:underline; color:#666; cursor:pointer; font-size: 1rem;" onclick="document.getElementById('login-screen').style.display='none';">Annuler</button>
         <div id="login-error" class="login-error">Mot de passe incorrect</div>
     </div>
 </div>
@@ -753,7 +748,7 @@
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
         Compta Asso
     </h1>
-    <button onclick="logout()" style="background:none; border:none; color:#D83A56; cursor:pointer; font-size:1rem;">Quitter</button>
+    <button onclick="logout()" style="background:none; border:none; color:#D83A56; cursor:pointer; font-size: 1rem;">Quitter</button>
 </header>
 
 <main class="container">
@@ -844,7 +839,7 @@
 
 <script>
     // ============================================================
-    // FONCTION FORMULAIRE DE CONTACT (FIXE)
+    // FONCTION FORMULAIRE DE CONTACT
     // ============================================================
     function sendContact(event) {
         event.preventDefault(); // Empêche le rechargement de la page
@@ -861,25 +856,15 @@
         window.location.href = "mailto:polemedical@aidersonprochain.fr?subject=" + encodeURIComponent(sujet) + "&body=" + encodeURIComponent(corps);
     }
 
-    // Fonction pour ouvrir l'écran de login (appelée par JS)
-    function openLoginScreen() {
-        document.getElementById('login-screen').style.display = 'flex';
-    }
-
-    // Fonction pour fermer l'écran de login (annuler)
-    function closeLoginScreen() {
-        document.getElementById('login-screen').style.display = 'none';
-    }
-
     // ============================================================
     // CONFIGURATION COMPTA ASSO
     // ============================================================
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0mLHxA8NRnQtaFAOivHz2DPqo-NZN7sV5LYRCmT_AvaYl68_kVSh7SjYBOU2BhysG/exec"; 
 
-    // --- CONFIGURATION MOT DE PASSE (SÉCURISÉE) ---
-    // Le mot de passe "kiwi@69200" est caché dans des codes ASCII
-    const codes = [107, 105, 119, 105, 64, 54, 57, 50, 48, 48];
-    const monMotDePasse = String.fromCharCode(...codes);
+    // --- CONFIGURATION MOT DE PASSE (BASE64 SIMPLE) ---
+    // Le mot de passe "kiwi@69200" encodé en Base64 est "a2l3aUA2OTIwMA=="
+    const encodedPass = "a2l3aUA2OTIwMA=="; 
+    const monMotDePasse = atob(encodedPass);
 
     // --- LOGIQUE CONNEXION ---
     function checkLogin() {
@@ -889,7 +874,6 @@
         if (input === monMotDePasse) {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('app-content').classList.remove('hidden');
-            // Cacher le site public pour éviter la confusion
             document.querySelector('.container-public').style.display = 'none';
             localStorage.setItem('compta_auth', 'true');
         } else {
@@ -906,29 +890,11 @@
         document.querySelector('.container-public').style.display = 'flex';
     }
 
-    // Initialisation au chargement de la page
-    document.addEventListener('DOMContentLoaded', () => {
-        // Attacher l'événement click au lien "Espace Membres" via JS
-        const btnLogin = document.getElementById('btn-espace-membres');
-        if (btnLogin) {
-            btnLogin.addEventListener('click', (e) => {
-                e.preventDefault();
-                openLoginScreen();
-            });
-        }
-
-        // Vérifier si l'utilisateur est déjà connecté
-        if (localStorage.getItem('compta_auth') === 'true') {
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('app-content').classList.remove('hidden');
-            document.querySelector('.container-public').style.display = 'none';
-        }
-
-        // Initialisation du formulaire Compta
-        document.getElementById('t-date').valueAsDate = new Date();
-        updateCategories();
-        renderStats();
-    });
+    if (localStorage.getItem('compta_auth') === 'true') {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('app-content').classList.remove('hidden');
+        document.querySelector('.container-public').style.display = 'none';
+    }
 
     document.getElementById('login-pass').addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
@@ -946,6 +912,12 @@
     let currentType = 'expense';
     let selectedFile = null;
     let sessionStats = { income: 0, expense: 0 };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('t-date').valueAsDate = new Date();
+        updateCategories();
+        renderStats();
+    });
 
     function setType(type) {
         currentType = type;
