@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Aidons Son Prochain</title>
+    <title>Aider Son Prochain</title>
     <style>
         /* =========================================
            VARIABLES GRAPHIQUES
@@ -229,7 +229,7 @@
         .btn-press { color: #D83A56; text-decoration: none; font-size: 1rem; font-weight: 600; padding-top: 15px; border-top: 1px solid #ffe0e0; width: 100%; display: block; }
         .btn-press:hover { text-decoration: underline; background-color: #fffafa; }
 
-        /* --- PARTENAIATS --- */
+        /* --- PARTENARIATS --- */
         .partners-section { margin-bottom: 60px; padding: 40px 20px; background: linear-gradient(135deg, #fffbf5 0%, #fff0f0 100%); border-radius: 20px; }
         .partners-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 40px; }
         .partner-card { background: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; border-bottom: 3px solid #FF9966; height: 80px; transition: transform 0.3s; }
@@ -344,7 +344,6 @@
         .login-error { color: var(--danger); font-size: 1rem; margin-top: 15px; display: none; }
         
         #app-content { 
-            /* Pas de display: none ici, mais caché par la classe .hidden dans le HTML */
             z-index: 9999; 
             position: fixed; top: 0; left: 0; 
             background: #fffbfb; 
@@ -365,7 +364,7 @@
         #app-content .stats .card .val.green { color: var(--accent); }
         #app-content .stats .card .val.red { color: var(--danger); }
 
-        #app-content .form-box { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: var(--shadow); }
+        #app-content .form-box { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 40px; }
         #app-content .form-group { margin-bottom: 1.2rem; }
         #app-content label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 1rem; }
         #app-content input, #app-content select { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
@@ -601,7 +600,7 @@
                     <a href="https://www.leprogres.fr/edition-est-lyonnais/2020/04/25/aider-son-prochain-gate-les-personnels-de-cancerologie" target="_blank" class="btn-press">Lire l'article</a>
                 </div>
 
-                <!-- Expressions Venissieux -->
+                <!-- Expressions Vénissieux -->
                 <div class="press-card">
                     <div>
                         <div class="press-source">Expressions Vénissieux</div>
@@ -712,8 +711,11 @@
                         <label for="contact-message">Message</label>
                         <textarea id="contact-message" rows="4" required placeholder="Votre message..."></textarea>
                     </div>
-                    <<button type="submit" id="btn-contact" class="btn-donate-large">Envoyer le message</button>
-                    <p class="contact-note">* Ce formulaire ouvrira votre logiciel de messagerie pour envoyer l'email.</p>
+                    
+                    <!-- CORRECTION ICI : Ajout de l'ID et suppression du double chevron -->
+                    <button type="submit" id="btn-contact" class="btn-donate-large">Envoyer le message</button>
+                    
+                    <p class="contact-note">* Ce formulaire envoie l'email directement.</p>
                 </form>
             </div>
         </section>
@@ -752,7 +754,6 @@
 </div>
 
 <!-- WRAPPER DE L'APPLICATION (Caché par défaut) -->
-<!-- Ajout de la classe hidden qui force display:none -->
 <div id="app-content" class="hidden">
 
 <header>
@@ -851,7 +852,7 @@
 
 <script>
     // ============================================================
-    // FONCTION FORMULAIRE DE CONTACT
+    // FONCTION FORMULAIRE DE CONTACT (SENDING VIA GOOGLE SHEETS)
     // ============================================================
     async function sendContact(event) {
         event.preventDefault();
@@ -912,6 +913,7 @@
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0mLHxA8NRnQtaFAOivHz2DPqo-NZN7sV5LYRCmT_AvaYl68_kVSh7SjYBOU2BhysG/exec"; 
 
     // --- CONFIGURATION MOT DE PASSE (BASE64) ---
+    // kiwi@69200
     const encodedPass = "a2l3aUA2OTIwMA=="; 
     const monMotDePasse = atob(encodedPass);
 
