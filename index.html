@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Aider Son Prochain</title>
+    <title>Aidons Son Prochain</title>
     <style>
         /* =========================================
            VARIABLES GRAPHIQUES
@@ -365,7 +365,7 @@
         #app-content .stats .card .val.green { color: var(--accent); }
         #app-content .stats .card .val.red { color: var(--danger); }
 
-        #app-content .form-box { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 40px; }
+        #app-content .form-box { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: var(--shadow); }
         #app-content .form-group { margin-bottom: 1.2rem; }
         #app-content label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 1rem; }
         #app-content input, #app-content select { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
@@ -601,7 +601,7 @@
                     <a href="https://www.leprogres.fr/edition-est-lyonnais/2020/04/25/aider-son-prochain-gate-les-personnels-de-cancerologie" target="_blank" class="btn-press">Lire l'article</a>
                 </div>
 
-                <!-- Expressions Vénissieux -->
+                <!-- Expressions Venissieux -->
                 <div class="press-card">
                     <div>
                         <div class="press-source">Expressions Vénissieux</div>
@@ -645,10 +645,10 @@
 
         <!-- SECTION 8 : PARTENARIATS -->
         <section class="partners-section">
-            <h2 style="text-align:center; font-size: 2rem; color: #D83A56; margin-bottom: 30px;">Nos Partenariats</h2>
-            <p style="text-align: center; margin-bottom: 30px; color: #666; font-size: 1rem;">Nous remercions chaleureusement nos partenaires et nos partenaires hospitaliers pour leur confiance.</p>
+            <h2 style="text-align:center; font-size: 1.5rem; color: #D83A56; margin-bottom: 20px;">Nos Partenariats</h2>
+            <p style="text-align: center; margin-bottom: 20px; color: #666; font-size: 1rem;">Nous remercions chaleureusement nos partenaires et nos partenaires hospitaliers pour leur confiance.</p>
             
-            <h3 style="text-align:center; font-size: 1.2rem; color: #D83A56; margin-bottom: 20px;">Entreprises qui nous soutiennent</h3>
+            <h3 style="text-align:center; font-size: 1.1rem; color: #D83A56; margin-bottom: 15px;">Entreprises qui nous soutiennent</h3>
             <div class="partners-grid">
                 <div class="partner-card">
                     <div class="partner-name">Meliconi</div>
@@ -673,12 +673,12 @@
                 </div>
             </div>
 
-            <h3 style="text-align:center; font-size: 1.2rem; color: #D83A56; margin-bottom: 20px; margin-top: 40px;">Conventions Hospitalières</h3>
+            <h3 style="text-align:center; font-size: 1.1rem; color: #D83A56; margin-bottom: 15px; margin-top: 30px;">Conventions Hospitalières</h3>
             <div class="hospitals-grid">
                 <div class="hospital-card" style="display: flex; flex-direction: column; justify-content: center;">
                     <span class="hospital-icon">🏥</span>
                     <div class="hospital-name">iHOP</div>
-                    <div class="hospital-name" style="font-size: 1rem; color: #666; margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px;">Centre Léon Bérard</div>
+                    <div class="hospital-name" style="font-size: 0.9rem; color: #666; margin-top: 5px; border-top: 1px solid #eee; padding-top: 5px;">Centre Léon Bérard</div>
                 </div>
                 <div class="hospital-card">
                     <span class="hospital-icon">🏥</span>
@@ -712,9 +712,8 @@
                         <label for="contact-message">Message</label>
                         <textarea id="contact-message" rows="4" required placeholder="Votre message..."></textarea>
                     </div>
-                    <button type="submit" class="btn-donate-large">Envoyer le message</button>
-                    <!-- NOTE : Texte modifié pour refléter le nouveau fonctionnement -->
-                    <p class="contact-note">* Ce formulaire envoie l'email directement.</p>
+                    <id="btn-contact"
+                    <p class="contact-note">* Ce formulaire ouvrira votre logiciel de messagerie pour envoyer l'email.</p>
                 </form>
             </div>
         </section>
@@ -852,7 +851,7 @@
 
 <script>
     // ============================================================
-    // FONCTION FORMULAIRE DE CONTACT (SENDING EMAIL VIA GOOGLE SCRIPT)
+    // FONCTION FORMULAIRE DE CONTACT
     // ============================================================
     async function sendContact(event) {
         event.preventDefault();
@@ -862,7 +861,7 @@
         const msg = document.getElementById('contact-message').value;
         const btn = document.getElementById('btn-contact');
 
-        // Payload pour distinguer le contact de la compta dans le script Google
+        // Payload pour distinguer le contact de la compta
         const payload = {
             type: 'contact',
             nom: nom,
@@ -890,7 +889,6 @@
                 showToast("Message envoyé !", 'success');
                 document.getElementById('contactForm').reset();
                 btn.innerText = "Message envoyé !";
-                // Attendre un peu avant de remettre le texte initial
                 setTimeout(() => {
                     btn.innerText = originalText;
                     btn.disabled = false;
@@ -914,7 +912,6 @@
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0mLHxA8NRnQtaFAOivHz2DPqo-NZN7sV5LYRCmT_AvaYl68_kVSh7SjYBOU2BhysG/exec"; 
 
     // --- CONFIGURATION MOT DE PASSE (BASE64) ---
-    // kiwi@69200
     const encodedPass = "a2l3aUA2OTIwMA=="; 
     const monMotDePasse = atob(encodedPass);
 
@@ -944,7 +941,6 @@
         document.querySelector('.container-public').style.display = 'flex';
     }
 
-    // Vérifier si connecté au démarrage
     if (localStorage.getItem('compta_auth') === 'true') {
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('app-content').classList.remove('hidden');
