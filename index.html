@@ -500,6 +500,9 @@
         .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
     </style>
+    <!-- jsPDF pour génération PDF côté navigateur -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
@@ -1476,27 +1479,155 @@
         return res.charAt(0).toUpperCase() + res.slice(1);
     }
 
+    // --- Génération PDF avec jsPDF côté navigateur ---
+    async function genererPDFBase64(data) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+        const rouge = [216, 58, 86];
+        const gris  = [100, 100, 100];
+        const noir  = [51, 51, 51];
+        var y = 20;
+
+        // En-tête
+        doc.setFillColor(...rouge);
+        doc.rect(0, 0, 210, 35, 'F');
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(16); doc.setFont('helvetica', 'bold');
+        doc.text('ASP – Aider Son Prochain', 105, 13, { align: 'center' });
+        doc.setFontSize(10); doc.setFont('helvetica', 'normal');
+        doc.text('REÇU POUR DONS AUX ŒUVRES ET ORGANISMES D\'INTÉRÊT GÉNÉRAL', 105, 21, { align: 'center' });
+        doc.setFontSize(9);
+        doc.text('N° ' + data.numRecu + '  |  Conformément à l\'article 200 du CGI', 105, 29, { align: 'center' });
+        y = 45;
+
+        // Bloc association
+        doc.setFillColor(255, 245, 245);
+        doc.rect(14, y, 182, 28, 'F');
+        doc.setDrawColor(...rouge);
+        doc.setLineWidth(0.8);
+        doc.rect(14, y, 4, 28, 'F');
+        doc.setTextColor(...gris);
+        doc.setFontSize(8); doc.setFont('helvetica', 'bold');
+        doc.text('ORGANISME BÉNÉFICIAIRE', 22, y + 7);
+        doc.setTextColor(...noir);
+        doc.setFontSize(10); doc.setFont('helvetica', 'bold');
+        doc.text('ASP – Aider Son Prochain', 22, y + 14);
+        doc.setFontSize(9); doc.setFont('helvetica', 'normal');
+        doc.text('24, rue Emile Zola – 69200 Vénissieux  |  SIRET : 837 640 259 00018  |  Association Loi 1901', 22, y + 20);
+        y += 35;
+
+        // Bloc donateur
+        doc.setFillColor(248, 249, 250);
+        doc.rect(14, y, 182, 30, 'F');
+        doc.setDrawColor(170, 170, 170);
+        doc.rect(14, y, 4, 30, 'F');
+        doc.setTextColor(...gris);
+        doc.setFontSize(8); doc.setFont('helvetica', 'bold');
+        doc.text('IDENTITÉ DU DONATEUR', 22, y + 7);
+        doc.setTextColor(...noir);
+        doc.setFontSize(10); doc.setFont('helvetica', 'bold');
+        doc.text(data.prenom + ' ' + data.nom, 22, y + 14);
+        doc.setFontSize(9); doc.setFont('helvetica', 'normal');
+        doc.text(data.adresse + '  |  ' + data.cp + ' ' + data.ville, 22, y + 20);
+        doc.text('Email : ' + data.email, 22, y + 26);
+        y += 38;
+
+        // Montant
+        doc.setFillColor(255, 240, 240);
+        doc.setDrawColor(...rouge);
+        doc.setLineWidth(0.5);
+        doc.roundedRect(14, y, 182, 28, 4, 4, 'FD');
+        doc.setTextColor(...gris);
+        doc.setFontSize(8); doc.setFont('helvetica', 'bold');
+        doc.text('MONTANT DU VERSEMENT', 105, y + 8, { align: 'center' });
+        doc.setTextColor(...rouge);
+        doc.setFontSize(22); doc.setFont('helvetica', 'bold');
+        doc.text(parseFloat(data.montant).toFixed(2) + ' €', 105, y + 19, { align: 'center' });
+        doc.setTextColor(...gris);
+        doc.setFontSize(9); doc.setFont('helvetica', 'italic');
+        doc.text('Soit : ' + data.montantLettre + ' euros', 105, y + 25, { align: 'center' });
+        y += 36;
+
+        // Tableau infos
+        var infos = [
+            ['Date du versement', data.date],
+            ['Forme du don', data.typeDon],
+            ['Date d\'émission du reçu', data.dateEmission]
+        ];
+        infos.forEach(function(row) {
+            doc.setFillColor(250, 250, 250);
+            doc.rect(14, y, 80, 8, 'F');
+            doc.rect(94, y, 102, 8);
+            doc.setDrawColor(238, 238, 238);
+            doc.rect(14, y, 80, 8, 'S');
+            doc.rect(94, y, 102, 8, 'S');
+            doc.setTextColor(...noir);
+            doc.setFontSize(9); doc.setFont('helvetica', 'bold');
+            doc.text(row[0], 17, y + 5.5);
+            doc.setFont('helvetica', 'normal');
+            doc.text(row[1], 97, y + 5.5);
+            y += 8;
+        });
+        y += 8;
+
+        // Avantage fiscal
+        var m = parseFloat(data.montant);
+        doc.setFillColor(240, 255, 240);
+        doc.setDrawColor(200, 230, 201);
+        doc.roundedRect(14, y, 182, 22, 3, 3, 'FD');
+        doc.setTextColor(46, 125, 50);
+        doc.setFontSize(8); doc.setFont('helvetica', 'bold');
+        doc.text('AVANTAGE FISCAL (ART. 200 CGI)', 18, y + 7);
+        doc.setTextColor(...noir);
+        doc.setFontSize(8); doc.setFont('helvetica', 'normal');
+        doc.text('Réduction d\'impôt de 75% dans la limite de 1 000 €, puis 66% au-delà (limite : 20% du revenu imposable).', 18, y + 13);
+        doc.text('Réduction estimée : ' + (m*0.75).toFixed(2) + ' €  —  Coût réel de votre don : ' + (m*0.25).toFixed(2) + ' €', 18, y + 19);
+        y += 30;
+
+        // Signatures
+        doc.setDrawColor(51, 51, 51);
+        doc.setLineWidth(0.3);
+        doc.line(20, y + 18, 90, y + 18);
+        doc.line(120, y + 18, 190, y + 18);
+        doc.setTextColor(...gris);
+        doc.setFontSize(8); doc.setFont('helvetica', 'normal');
+        doc.text('Signature du donateur', 55, y + 23, { align: 'center' });
+        doc.text('La Présidente de l\'association', 155, y + 23, { align: 'center' });
+        y += 32;
+
+        // Pied de page
+        doc.setFillColor(245, 245, 245);
+        doc.rect(0, 280, 210, 17, 'F');
+        doc.setTextColor(170, 170, 170);
+        doc.setFontSize(7.5);
+        doc.text('ASP – Aider Son Prochain  |  24, rue Emile Zola – 69200 Vénissieux  |  SIRET : 837 640 259 00018  |  Association Loi 1901', 105, 287, { align: 'center' });
+        doc.text('Document généré le ' + data.dateEmission + '  —  Conservez ce reçu pour votre déclaration de revenus.', 105, 292, { align: 'center' });
+
+        return doc.output('datauristring').split(',')[1];
+    }
+
     async function envoyerRecu(e) {
         e.preventDefault();
         var btn = document.getElementById('btn-envoyer-recu');
         var status = document.getElementById('recu-status');
         btn.disabled = true;
-        btn.textContent = 'Envoi en cours...';
+        btn.textContent = '⏳ Génération du PDF...';
         status.style.display = 'none';
 
-        var prenom = document.getElementById('r-prenom').value;
-        var nom = document.getElementById('r-nom').value;
-        var adresse = document.getElementById('r-adresse').value;
-        var cp = document.getElementById('r-cp').value;
-        var ville = document.getElementById('r-ville').value;
-        var email = document.getElementById('r-email').value;
-        var montant = parseFloat(document.getElementById('r-montant').value);
-        var date = document.getElementById('r-date').value;
-        var typeDon = document.getElementById('r-type').value;
-        var numRecu = genNumRecu();
-        var dateFormatee = new Date(date).toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric'});
+        var prenom      = document.getElementById('r-prenom').value;
+        var nom         = document.getElementById('r-nom').value;
+        var adresse     = document.getElementById('r-adresse').value;
+        var cp          = document.getElementById('r-cp').value;
+        var ville       = document.getElementById('r-ville').value;
+        var email       = document.getElementById('r-email').value;
+        var montant     = parseFloat(document.getElementById('r-montant').value);
+        var date        = document.getElementById('r-date').value;
+        var typeDon     = document.getElementById('r-type').value;
+        var numRecu     = genNumRecu();
+        var dateFormatee = new Date(date).toLocaleDateString('fr-FR', {day:'2-digit', month:'long', year:'numeric'});
+        var dateEmission = new Date().toLocaleDateString('fr-FR');
 
-        var payload = {
+        var data = {
             type: 'recu_fiscal',
             numRecu: numRecu,
             prenom: prenom,
@@ -1509,36 +1640,43 @@
             montantLettre: nombreEnLettres(montant),
             date: dateFormatee,
             typeDon: typeDon,
-            dateEmission: new Date().toLocaleDateString('fr-FR')
+            dateEmission: dateEmission,
+            pdfBase64: null
         };
 
+        // Génération PDF côté navigateur
         try {
+            btn.textContent = '⏳ Génération du PDF...';
+            data.pdfBase64 = await genererPDFBase64(data);
+        } catch(err) {
+            console.error('Erreur PDF:', err);
+            // On continue sans PDF si erreur
+        }
+
+        try {
+            btn.textContent = '⏳ Envoi en cours...';
             var response = await fetch(GOOGLE_SCRIPT_URL + "?t=" + new Date().getTime(), {
                 method: 'POST', redirect: 'follow', mode: 'cors',
                 headers: { 'Content-Type': 'text/plain' },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(data)
             });
             var result = await response.json();
             if (result.result === 'success') {
-                status.className = 'recu-status success';
+                status.style.cssText = 'display:block; margin-top:14px; padding:12px 16px; border-radius:9px; font-size:0.95rem; background:#e8f5e9; color:#2e7d32; border-left:4px solid #4CAF50;';
                 status.textContent = '✅ Reçu envoyé avec succès à ' + email;
-                status.style.display = 'block';
                 document.getElementById('recu-form').reset();
-                document.getElementById('recu-apercu').innerHTML = '<p class="placeholder-text">Reçu envoyé ! Remplissez le formulaire pour un nouveau reçu.</p>';
-                mettreAJourApercu();
+                document.getElementById('recu-apercu').innerHTML = '<p style="color:#ccc;text-align:center;padding:40px 0;font-style:italic;">Reçu envoyé ! Remplissez le formulaire pour un nouveau reçu.</p>';
             } else {
-                status.className = 'recu-status error';
+                status.style.cssText = 'display:block; margin-top:14px; padding:12px 16px; border-radius:9px; font-size:0.95rem; background:#ffebee; color:#c62828; border-left:4px solid #e74c3c;';
                 status.textContent = '❌ Erreur : ' + (result.error || 'inconnue');
-                status.style.display = 'block';
             }
         } catch(err) {
-            status.className = 'recu-status error';
-            status.textContent = '❌ Erreur de connexion. Vérifiez votre connexion internet.';
-            status.style.display = 'block';
+            status.style.cssText = 'display:block; margin-top:14px; padding:12px 16px; border-radius:9px; font-size:0.95rem; background:#ffebee; color:#c62828; border-left:4px solid #e74c3c;';
+            status.textContent = '❌ Erreur de connexion.';
             console.error(err);
         } finally {
             btn.disabled = false;
-            btn.textContent = 'Envoyer le reçu fiscal par email';
+            btn.textContent = '📧 Envoyer le reçu fiscal par email';
         }
     }
 
