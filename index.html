@@ -252,6 +252,47 @@
         .form-group textarea { resize: vertical; }
         .contact-note { font-size: 0.9rem; color: #888; margin-top: 15px; text-align: center; font-style: italic; }
 
+        /* --- CAPTCHA MATHEMATIQUE --- */
+        .captcha-box {
+            background: linear-gradient(135deg, #fff9f5, #fff0f0);
+            border: 1px solid #ffe0e0;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .captcha-question {
+            font-weight: 700;
+            color: #D83A56;
+            font-size: 1.1rem;
+            white-space: nowrap;
+        }
+        .captcha-input {
+            width: 80px !important;
+            padding: 10px !important;
+            border: 2px solid #ffb3b3 !important;
+            border-radius: 8px !important;
+            font-size: 1.1rem !important;
+            font-weight: bold !important;
+            text-align: center !important;
+            background: white !important;
+        }
+        .captcha-input:focus { border-color: #D83A56 !important; outline: none !important; }
+        .captcha-input.error {
+            border-color: #e74c3c !important;
+            background: #fff5f5 !important;
+        }
+        .captcha-label { font-size: 0.9rem; color: #888; flex: 1; min-width: 150px; }
+        .captcha-refresh {
+            background: none; border: none; cursor: pointer;
+            font-size: 1.2rem; color: #FF9966; padding: 5px;
+            border-radius: 50%; transition: transform 0.3s; line-height: 1;
+        }
+        .captcha-refresh:hover { transform: rotate(180deg); }
+
         /* --- FOOTER --- */
         .footer { 
             text-align: center; 
@@ -405,7 +446,7 @@
             <div class="btn-group">
                 <a href="https://www.helloasso.com/associations/aider-son-prochain/formulaires/1?_gl=1*3s5wt3*_gcl_aw*R0NMLjE3NjQ4MzQ3NTcuQ2p3S0NBaUEzTF9KQmhBbEVpd0FsY1dPNTZOSENHUmtfOEx6ck9WV0VONHlLTVpmRUtkcC1EeWlXXzdycTVBSUNUWUJSQVJ5Z3dCcXN4b0M5OTRRQXZEX0J3RQ..*_gcl_au*MjA4NzM1NzM3NS4xNzYzOTk3NTQ2LjE0MjU1NTE1OTEuMTc2NTg3NDI5My4xNzY1ODc0Mjky" target="_blank" class="btn btn-primary">Faire un don</a>
                 
-                <a href="mailto:polemedical@aidersonprochain.fr?subject=Candidature Bénévole" class="btn btn-secondary">Devenir bénévole</a>
+                <a href="/cdn-cgi/l/email-protection#7c0c131019111918151f1d103c1d1518190e0f13120c0e131f141d1512521a0e430f091e16191f08413f1d121815181d08090e195c3ebfd512bfd50a131019" class="btn btn-secondary">Devenir bénévole</a>
             </div>
         </section>
 
@@ -712,9 +753,16 @@
                         <textarea id="contact-message" rows="4" required placeholder="Votre message..."></textarea>
                     </div>
                     
-                    <!-- CORRECTION ICI : Ajout de l'ID et suppression du double chevron -->
+                    <!-- CAPTCHA MATHEMATIQUE -->
+                    <div class="captcha-box">
+                        <span class="captcha-question" id="captcha-question">? + ? </span>
+                        <span style="font-size:1.1rem; color:#D83A56; font-weight:bold;">=</span>
+                        <input type="number" id="captcha-answer" class="captcha-input" placeholder="?" required autocomplete="off">
+                        <button type="button" class="captcha-refresh" onclick="generateCaptcha()" title="Nouvelle question">🔄</button>
+                        <span class="captcha-label">Prouvez que vous n'êtes pas un robot 🤖</span>
+                    </div>
+
                     <button type="submit" id="btn-contact" class="btn-donate-large">Envoyer le message</button>
-                    
                     <p class="contact-note">* Ce formulaire envoie l'email directement.</p>
                 </form>
             </div>
@@ -850,12 +898,24 @@
 
 </div> <!-- Fin de app-content -->
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // ============================================================
     // FONCTION FORMULAIRE DE CONTACT (SENDING VIA GOOGLE SHEETS)
     // ============================================================
     async function sendContact(event) {
         event.preventDefault();
+
+        // Vérification du captcha
+        var userAnswer = parseInt(document.getElementById('captcha-answer').value);
+        var captchaInput = document.getElementById('captcha-answer');
+        if (isNaN(userAnswer) || userAnswer !== captchaResult) {
+            captchaInput.classList.add('error');
+            captchaInput.value = '';
+            captchaInput.focus();
+            showToast("❌ Réponse incorrecte, réessayez !", 'error');
+            setTimeout(function() { generateCaptcha(); }, 1000);
+            return;
+        }
 
         const nom = document.getElementById('contact-name').value;
         const email = document.getElementById('contact-email').value;
@@ -889,6 +949,7 @@
             if (result.result === 'success') {
                 showToast("Message envoyé !", 'success');
                 document.getElementById('contactForm').reset();
+                generateCaptcha();
                 btn.innerText = "Message envoyé !";
                 setTimeout(() => {
                     btn.innerText = originalText;
@@ -1087,9 +1148,41 @@
             console.error(err);
         } finally {
             btn.disabled = false;
-            btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> Envoyer vers Google Sheets';
+            btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> Envoyer';
         }
     });
+
+    // ============================================================
+    // CAPTCHA MATHEMATIQUE
+    // ============================================================
+    var captchaResult = 0;
+
+    function generateCaptcha() {
+        var operators = ['+', '-', '×'];
+        var op = operators[Math.floor(Math.random() * operators.length)];
+        var a, b, result;
+        if (op === '+') {
+            a = Math.floor(Math.random() * 10) + 1;
+            b = Math.floor(Math.random() * 10) + 1;
+            result = a + b;
+        } else if (op === '-') {
+            a = Math.floor(Math.random() * 10) + 5;
+            b = Math.floor(Math.random() * 5) + 1;
+            result = a - b;
+        } else {
+            a = Math.floor(Math.random() * 5) + 2;
+            b = Math.floor(Math.random() * 5) + 2;
+            result = a * b;
+        }
+        captchaResult = result;
+        document.getElementById('captcha-question').textContent = a + ' ' + op + ' ' + b;
+        document.getElementById('captcha-answer').value = '';
+        document.getElementById('captcha-answer').classList.remove('error');
+    }
+
+    // Appel immédiat
+    generateCaptcha();
+
 </script>
 </body>
 </html>
