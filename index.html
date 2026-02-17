@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="fr" style="scroll-behavior: smooth;">
 <head>
     <meta charset="UTF-8">
@@ -292,6 +292,79 @@
             border-radius: 50%; transition: transform 0.3s; line-height: 1;
         }
         .captcha-refresh:hover { transform: rotate(180deg); }
+
+        /* =========================================
+           STYLE MODULE REÇUS FISCAUX
+           ========================================= */
+        #recu-login-screen {
+            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 10000;
+            justify-content: center; align-items: center;
+            backdrop-filter: blur(4px);
+        }
+        #recu-app {
+            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #f8f9fa; z-index: 9999;
+            overflow-y: auto;
+        }
+        .recu-header {
+            background: linear-gradient(135deg, #D83A56, #FF5E62);
+            color: white; padding: 15px 25px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .recu-header h1 { font-size: 1.2rem; margin: 0; display: flex; align-items: center; gap: 10px; }
+        .recu-body { max-width: 900px; margin: 0 auto; padding: 30px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        @media(max-width:768px) { .recu-body { grid-template-columns: 1fr; } }
+        .recu-form-box {
+            background: white; border-radius: 16px;
+            padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+        }
+        .recu-form-box h2 { color: #D83A56; font-size: 1.2rem; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #ffe0e0; }
+        .recu-group { margin-bottom: 18px; }
+        .recu-group label { display: block; font-weight: 600; color: #555; margin-bottom: 7px; font-size: 0.95rem; }
+        .recu-group input, .recu-group select {
+            width: 100%; padding: 12px 15px; border: 1px solid #e0e0e0;
+            border-radius: 10px; font-size: 1rem; font-family: inherit;
+            background: #fafafa; transition: border 0.3s;
+        }
+        .recu-group input:focus, .recu-group select:focus { border-color: #D83A56; outline: none; background: white; }
+        .recu-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .btn-generer {
+            width: 100%; padding: 16px; background: linear-gradient(45deg, #D83A56, #FF5E62);
+            color: white; border: none; border-radius: 10px; font-size: 1.1rem;
+            font-weight: bold; cursor: pointer; margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(216,58,86,0.3); transition: 0.3s;
+        }
+        .btn-generer:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(216,58,86,0.4); }
+        .btn-generer:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* Aperçu attestation */
+        .recu-preview-box {
+            background: white; border-radius: 16px;
+            padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+        }
+        .recu-preview-box h2 { color: #D83A56; font-size: 1.2rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #ffe0e0; }
+        #recu-apercu {
+            border: 2px dashed #ffe0e0; border-radius: 12px; padding: 25px;
+            font-size: 0.88rem; color: #333; line-height: 1.7; min-height: 300px;
+            background: #fffafa;
+        }
+        #recu-apercu .att-header { text-align: center; margin-bottom: 20px; }
+        #recu-apercu .att-logo { font-size: 1.5rem; font-weight: 900; color: #D83A56; }
+        #recu-apercu .att-titre { font-size: 1rem; font-weight: 700; margin: 8px 0; text-transform: uppercase; letter-spacing: 1px; }
+        #recu-apercu .att-num { font-size: 0.8rem; color: #999; }
+        #recu-apercu .att-section { margin: 15px 0; }
+        #recu-apercu .att-label { font-weight: 600; color: #888; font-size: 0.8rem; text-transform: uppercase; }
+        #recu-apercu .att-value { font-size: 0.95rem; color: #222; }
+        #recu-apercu .att-montant { font-size: 1.4rem; font-weight: 900; color: #D83A56; text-align: center; padding: 15px; background: #fff5f5; border-radius: 8px; margin: 15px 0; }
+        #recu-apercu .att-footer { font-size: 0.75rem; color: #999; border-top: 1px solid #eee; padding-top: 12px; margin-top: 20px; text-align: center; }
+        .placeholder-text { color: #ccc; text-align: center; padding: 40px 0; font-style: italic; }
+        .recu-status { margin-top: 15px; padding: 12px 18px; border-radius: 10px; font-size: 0.95rem; display: none; }
+        .recu-status.success { background: #e8f5e9; color: #2e7d32; border-left: 4px solid #4CAF50; }
+        .recu-status.error { background: #ffebee; color: #c62828; border-left: 4px solid #e74c3c; }
 
         /* --- FOOTER --- */
         .footer { 
@@ -805,14 +878,20 @@
 <div id="app-content" class="hidden">
 
 <header>
-    <h1>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-        Compta Asso
-    </h1>
+    <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+        <h1 style="margin:0;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            Espace Bureau
+        </h1>
+        <div style="display:flex; gap:8px;">
+            <button id="tab-compta" onclick="afficherOnglet('compta')" style="padding:7px 16px; border-radius:20px; border:2px solid #D83A56; background:#D83A56; color:white; cursor:pointer; font-weight:bold; font-size:0.9rem;">📊 Compta</button>
+            <button id="tab-recu" onclick="afficherOnglet('recu')" style="padding:7px 16px; border-radius:20px; border:2px solid #D83A56; background:white; color:#D83A56; cursor:pointer; font-weight:bold; font-size:0.9rem;">🧾 Reçus fiscaux</button>
+        </div>
+    </div>
     <button onclick="logout()" style="background:none; border:none; color:#D83A56; cursor:pointer; font-size:1rem;">Quitter</button>
 </header>
 
-<main class="container">
+<main class="container" id="module-compta">
     <div class="stats">
         <div class="card">
             <h3>Recettes (Session)</h3>
@@ -895,6 +974,79 @@
 </main>
 
 <div id="toast" class="toast">Message</div>
+
+<!-- MODULE REÇUS FISCAUX (dans app-content) -->
+<main class="container" id="module-recu" style="display:none;">
+    <div style="max-width:900px; margin:0 auto; padding:20px 0; display:grid; grid-template-columns:1fr 1fr; gap:25px;">
+
+        <!-- FORMULAIRE -->
+        <div style="background:white; border-radius:16px; padding:30px; box-shadow:0 5px 20px rgba(0,0,0,0.07);">
+            <h2 style="color:#D83A56; font-size:1.2rem; margin-bottom:25px; padding-bottom:10px; border-bottom:2px solid #ffe0e0;">📝 Informations du donateur</h2>
+            <form id="recu-form" onsubmit="envoyerRecu(event)">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+                    <div>
+                        <label style="display:block; font-weight:600; color:#555; margin-bottom:6px; font-size:0.9rem;">Prénom *</label>
+                        <input type="text" id="r-prenom" required placeholder="Prénom" oninput="mettreAJourApercu()" style="width:100%; padding:11px 13px; border:1px solid #e0e0e0; border-radius:9px; font-size:0.95rem; font-family:inherit; background:#fafafa; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label style="display:block; font-weight:600; color:#555; margin-bottom:6px; font-size:0.9rem;">Nom *</label>
+                        <input type="text" id="r-nom" required placeholder="Nom" oninput="mettreAJourApercu()" style="width:100%; padding:11px 13px; border:1px solid #e0e0e0; border-radius:9px; font-size:0.95rem; font-family:inherit; background:#fafafa; box-sizing:border-box;">
+                    </div>
+                </div>
+                <div style="margin-bottom:14px;">
+                    <label style="display:block; font-weight:600; color:#555; margin-bottom:6px; font-size:0.9rem;">Adresse *</label>
+                    <input type="text" id="r-adresse" required placeholder="Numéro et rue" oninput="mettreAJourApercu()" style="width:100%; padding:11px 13px; border:1px solid #e0e0e0; border-radius:9px; font-size:0.95rem; font-family:inherit; background:#fafafa; box-sizing:border-box;">
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+                    <div>
+                        <label style="display:block; font-weight:600; color:#555; margin-bottom:6px; font-size:0.9rem;">Code postal *</label>
+                        <input type="text" id="r-cp" required placeholder="69000" maxlength="5" oninput="mettreAJourApercu()" style="width:100%; padding:11px 13px; border:1px solid #e0e0e0; border-radius:9px; font-size:0.95rem; font-family:inherit; background:#fafafa; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label style="display:block; font-weight:600; color:#555; margin-bottom:6px; font-size:0.9rem;">Ville *</label>
+                        <input type="text" id="r-ville" required placeholder="Ville" oninput="mettreAJourApercu()" style="width:100%; padding:11px 13px; border:1px solid #e0e0e0; border-radius:9px; font-size:0.95rem; font-family:inherit; background:#fafafa; box-sizing:border-box;">
+                    </div>
+                </div>
+                <div style="margin-bottom:14px;">
+                    <label style="display:block; font-weight:600; color:#555; margin-bottom:6px; font-size:0.9rem;">Email du donateur *</label>
+                    <input type="email" id="r-email" required placeholder="email@exemple.com" oninput="mettreAJourApercu()" style="width:100%; padding:11px 13px; border:1px solid #e0e0e0; border-radius:9px; font-size:0.95rem; font-family:inherit; background:#fafafa; box-sizing:border-box;">
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+                    <div>
+                        <label style="display:block; font-weight:600; color:#555; margin-bottom:6px; font-size:0.9rem;">Montant (€) *</label>
+                        <input type="number" id="r-montant" required min="1" step="0.01" placeholder="0.00" oninput="mettreAJourApercu()" style="width:100%; padding:11px 13px; border:1px solid #e0e0e0; border-radius:9px; font-size:0.95rem; font-family:inherit; background:#fafafa; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label style="display:block; font-weight:600; color:#555; margin-bottom:6px; font-size:0.9rem;">Date du don *</label>
+                        <input type="date" id="r-date" required oninput="mettreAJourApercu()" style="width:100%; padding:11px 13px; border:1px solid #e0e0e0; border-radius:9px; font-size:0.95rem; font-family:inherit; background:#fafafa; box-sizing:border-box;">
+                    </div>
+                </div>
+                <div style="margin-bottom:20px;">
+                    <label style="display:block; font-weight:600; color:#555; margin-bottom:6px; font-size:0.9rem;">Forme du don *</label>
+                    <select id="r-type" required onchange="mettreAJourApercu()" style="width:100%; padding:11px 13px; border:1px solid #e0e0e0; border-radius:9px; font-size:0.95rem; font-family:inherit; background:#fafafa; box-sizing:border-box;">
+                        <option value="Virement bancaire">Virement bancaire</option>
+                        <option value="Chèque">Chèque</option>
+                        <option value="Espèces">Espèces</option>
+                        <option value="Don en ligne (HelloAsso)">Don en ligne (HelloAsso)</option>
+                        <option value="Prélèvement automatique">Prélèvement automatique</option>
+                    </select>
+                </div>
+                <button type="submit" id="btn-envoyer-recu" style="width:100%; padding:15px; background:linear-gradient(45deg,#D83A56,#FF5E62); color:white; border:none; border-radius:10px; font-size:1rem; font-weight:bold; cursor:pointer; box-shadow:0 5px 15px rgba(216,58,86,0.3);">
+                    📧 Envoyer le reçu fiscal par email
+                </button>
+                <div id="recu-status" style="display:none; margin-top:14px; padding:12px 16px; border-radius:9px; font-size:0.95rem;"></div>
+            </form>
+        </div>
+
+        <!-- APERÇU -->
+        <div style="background:white; border-radius:16px; padding:30px; box-shadow:0 5px 20px rgba(0,0,0,0.07);">
+            <h2 style="color:#D83A56; font-size:1.2rem; margin-bottom:20px; padding-bottom:10px; border-bottom:2px solid #ffe0e0;">👁️ Aperçu de l'attestation</h2>
+            <div id="recu-apercu" style="border:2px dashed #ffe0e0; border-radius:12px; padding:20px; font-size:0.85rem; color:#333; line-height:1.7; min-height:300px; background:#fffafa;">
+                <p style="color:#ccc; text-align:center; padding:40px 0; font-style:italic;">Remplissez le formulaire pour voir l'aperçu en temps réel</p>
+            </div>
+        </div>
+    </div>
+</main>
 
 </div> <!-- Fin de app-content -->
 
@@ -1183,6 +1335,213 @@
     // Appel immédiat
     generateCaptcha();
 
+    // ============================================================
+    // NAVIGATION ONGLETS (Compta / Reçus Fiscaux)
+    // ============================================================
+    function afficherOnglet(onglet) {
+        var compta = document.getElementById('module-compta');
+        var recu = document.getElementById('module-recu');
+        var tabCompta = document.getElementById('tab-compta');
+        var tabRecu = document.getElementById('tab-recu');
+
+        if (onglet === 'compta') {
+            compta.style.display = 'block';
+            recu.style.display = 'none';
+            tabCompta.style.background = '#D83A56';
+            tabCompta.style.color = 'white';
+            tabRecu.style.background = 'white';
+            tabRecu.style.color = '#D83A56';
+        } else {
+            compta.style.display = 'none';
+            recu.style.display = 'block';
+            tabRecu.style.background = '#D83A56';
+            tabRecu.style.color = 'white';
+            tabCompta.style.background = 'white';
+            tabCompta.style.color = '#D83A56';
+            // Initialiser la date si vide
+            var dateRecu = document.getElementById('r-date');
+            if (dateRecu && !dateRecu.value) dateRecu.valueAsDate = new Date();
+        }
+    }
+
+    // ============================================================
+    // MODULE REÇUS FISCAUX
+    // ============================================================
+    function ouvrirLoginRecu() {
+        document.getElementById('recu-login-screen').style.display = 'flex';
+        document.getElementById('recu-login-pass').focus();
+    }
+
+    function checkLoginRecu() {
+        var input = document.getElementById('recu-login-pass').value;
+        if (input === monMotDePasse) {
+            document.getElementById('recu-login-screen').style.display = 'none';
+            var recuApp = document.getElementById('recu-app');
+            recuApp.style.display = 'block';
+            recuApp.style.position = 'fixed';
+            recuApp.style.top = '0';
+            recuApp.style.left = '0';
+            recuApp.style.width = '100%';
+            recuApp.style.height = '100%';
+            recuApp.style.zIndex = '9999';
+            recuApp.style.background = '#f8f9fa';
+            recuApp.style.overflowY = 'auto';
+            document.getElementById('recu-login-pass').value = '';
+            document.getElementById('recu-login-error').style.display = 'none';
+            // Initialiser la date
+            var dateRecu = document.getElementById('r-date');
+            if (dateRecu && !dateRecu.value) dateRecu.valueAsDate = new Date();
+        } else {
+            document.getElementById('recu-login-error').style.display = 'block';
+            document.getElementById('recu-login-pass').value = '';
+            document.getElementById('recu-login-pass').focus();
+        }
+    }
+
+    function fermerRecu() {
+        document.getElementById('recu-app').style.display = 'none';
+        document.getElementById('recu-form').reset();
+        document.getElementById('recu-apercu').innerHTML = '<p class="placeholder-text">Remplissez le formulaire pour voir l\'aperçu</p>';
+        document.getElementById('recu-status').style.display = 'none';
+        document.getElementById('recu-status').className = 'recu-status';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var passRecu = document.getElementById('recu-login-pass');
+        if (passRecu) {
+            passRecu.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') { e.preventDefault(); checkLoginRecu(); }
+            });
+        }
+        var dateRecu = document.getElementById('r-date');
+        if (dateRecu) dateRecu.valueAsDate = new Date();
+    });
+
+    function genNumRecu() {
+        var now = new Date();
+        return 'ASP-' + now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + '-' + String(now.getTime()).slice(-4);
+    }
+
+    function mettreAJourApercu() {
+        var prenom = document.getElementById('r-prenom').value || '___';
+        var nom = document.getElementById('r-nom').value || '___';
+        var adresse = document.getElementById('r-adresse').value || '___';
+        var cp = document.getElementById('r-cp').value || '___';
+        var ville = document.getElementById('r-ville').value || '___';
+        var email = document.getElementById('r-email').value || '___';
+        var montant = document.getElementById('r-montant').value || '___';
+        var date = document.getElementById('r-date').value;
+        var dateFormatee = date ? new Date(date).toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric'}) : '___';
+        var typeDon = document.getElementById('r-type').value;
+        var numRecu = genNumRecu();
+
+        var montantLettre = montant !== '___' ? nombreEnLettres(parseFloat(montant)) : '___';
+
+        document.getElementById('recu-apercu').innerHTML =
+            '<div class="att-header">' +
+                '<div class="att-logo">🤝 ASP – Aider Son Prochain</div>' +
+                '<div class="att-titre">Reçu pour dons aux œuvres</div>' +
+                '<div class="att-num">N° ' + numRecu + ' • Établi conformément à l\'article 200 du CGI</div>' +
+            '</div>' +
+            '<div class="att-section"><div class="att-label">Association bénéficiaire</div><div class="att-value"><strong>ASP – Aider Son Prochain</strong><br>24, rue Emile Zola – 69200 Vénissieux<br>Association Loi 1901 reconnue d\'utilité publique</div></div>' +
+            '<div class="att-section"><div class="att-label">Donateur</div><div class="att-value"><strong>' + prenom + ' ' + nom + '</strong><br>' + adresse + '<br>' + cp + ' ' + ville + '<br>' + email + '</div></div>' +
+            '<div class="att-montant">💰 ' + (montant !== '___' ? parseFloat(montant).toFixed(2) + ' €' : '___') + '<br><span style="font-size:0.75rem;font-weight:400;color:#888;">Soit : ' + montantLettre + ' euros</span></div>' +
+            '<div class="att-section"><div class="att-label">Date du versement</div><div class="att-value">' + dateFormatee + '</div></div>' +
+            '<div class="att-section"><div class="att-label">Forme du don</div><div class="att-value">' + typeDon + '</div></div>' +
+            '<div class="att-section"><div class="att-label">Avantage fiscal</div><div class="att-value">Ce don ouvre droit à une <strong>réduction d\'impôt de 75%</strong> dans la limite de 1 000 € (art. 200 CGI), puis 66% au-delà.</div></div>' +
+            '<div class="att-footer">Document établi le ' + new Date().toLocaleDateString('fr-FR') + ' • Association ASP – SIRET 837 640 259 00018<br>Ce reçu doit être conservé et joint à votre déclaration de revenus.</div>';
+    }
+
+    function nombreEnLettres(n) {
+        if (isNaN(n)) return '___';
+        var unite = ['','un','deux','trois','quatre','cinq','six','sept','huit','neuf','dix','onze','douze','treize','quatorze','quinze','seize','dix-sept','dix-huit','dix-neuf'];
+        var dizaine = ['','','vingt','trente','quarante','cinquante','soixante','soixante','quatre-vingt','quatre-vingt'];
+        function conv(nb) {
+            if (nb === 0) return '';
+            if (nb < 20) return unite[nb];
+            if (nb < 100) {
+                var d = Math.floor(nb/10), u = nb%10;
+                if (d === 7 || d === 9) return dizaine[d] + (u === 1 && d===7 ? '-et-' : '-') + unite[d===7||d===9 ? u+10 : u];
+                return dizaine[d] + (u === 1 && d !== 8 ? '-et-un' : u ? '-'+unite[u] : (d===8?'s':''));
+            }
+            if (nb < 1000) return (nb===100?'cent':(conv(Math.floor(nb/100))+(Math.floor(nb/100)>1?'-cents':'-cent'))) + (nb%100 ? '-'+conv(nb%100) : '');
+            if (nb < 10000) return conv(Math.floor(nb/1000)) + '-mille' + (nb%1000 ? '-'+conv(nb%1000) : '');
+            return nb.toString();
+        }
+        var entier = Math.floor(n), cents = Math.round((n - entier)*100);
+        var res = entier === 0 ? 'zéro' : conv(entier);
+        if (cents > 0) res += ' virgule ' + conv(cents) + ' centime' + (cents > 1 ? 's' : '');
+        return res.charAt(0).toUpperCase() + res.slice(1);
+    }
+
+    async function envoyerRecu(e) {
+        e.preventDefault();
+        var btn = document.getElementById('btn-envoyer-recu');
+        var status = document.getElementById('recu-status');
+        btn.disabled = true;
+        btn.textContent = 'Envoi en cours...';
+        status.style.display = 'none';
+
+        var prenom = document.getElementById('r-prenom').value;
+        var nom = document.getElementById('r-nom').value;
+        var adresse = document.getElementById('r-adresse').value;
+        var cp = document.getElementById('r-cp').value;
+        var ville = document.getElementById('r-ville').value;
+        var email = document.getElementById('r-email').value;
+        var montant = parseFloat(document.getElementById('r-montant').value);
+        var date = document.getElementById('r-date').value;
+        var typeDon = document.getElementById('r-type').value;
+        var numRecu = genNumRecu();
+        var dateFormatee = new Date(date).toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric'});
+
+        var payload = {
+            type: 'recu_fiscal',
+            numRecu: numRecu,
+            prenom: prenom,
+            nom: nom,
+            adresse: adresse,
+            cp: cp,
+            ville: ville,
+            email: email,
+            montant: montant.toFixed(2),
+            montantLettre: nombreEnLettres(montant),
+            date: dateFormatee,
+            typeDon: typeDon,
+            dateEmission: new Date().toLocaleDateString('fr-FR')
+        };
+
+        try {
+            var response = await fetch(GOOGLE_SCRIPT_URL + "?t=" + new Date().getTime(), {
+                method: 'POST', redirect: 'follow', mode: 'cors',
+                headers: { 'Content-Type': 'text/plain' },
+                body: JSON.stringify(payload)
+            });
+            var result = await response.json();
+            if (result.result === 'success') {
+                status.className = 'recu-status success';
+                status.textContent = '✅ Reçu envoyé avec succès à ' + email;
+                status.style.display = 'block';
+                document.getElementById('recu-form').reset();
+                document.getElementById('recu-apercu').innerHTML = '<p class="placeholder-text">Reçu envoyé ! Remplissez le formulaire pour un nouveau reçu.</p>';
+                mettreAJourApercu();
+            } else {
+                status.className = 'recu-status error';
+                status.textContent = '❌ Erreur : ' + (result.error || 'inconnue');
+                status.style.display = 'block';
+            }
+        } catch(err) {
+            status.className = 'recu-status error';
+            status.textContent = '❌ Erreur de connexion. Vérifiez votre connexion internet.';
+            status.style.display = 'block';
+            console.error(err);
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Envoyer le reçu fiscal par email';
+        }
+    }
+
 </script>
+
+
 </body>
 </html>
