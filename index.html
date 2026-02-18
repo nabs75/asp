@@ -1138,17 +1138,27 @@
     // ============================================================
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz1r5VAFH4gLyJbyh3rnzRNZ5qIoJEMYF5gmLaLRJJqhlgIwf7HNVotsQeTDANFNFZv/exec";
 
-    // --- CONFIGURATION MOT DE PASSE (BASE64) ---
-    // kiwi@69200
-    const encodedPass = "a2l3aUA2OTIwMA=="; 
-    const monMotDePasse = atob(encodedPass);
+    // --- AUTHENTIFICATION SÉCURISÉE (SHA-256) ---
+    // Hash SHA-256 du mot de passe (irréversible)
+    const PASSWORD_HASH = "e22a387be8cee3abb4b3f4013fcc21b4c428a45cfac6ccc5f648adbb66b839f0";
+    
+    // Fonction de hachage SHA-256
+    async function sha256(message) {
+        const msgBuffer = new TextEncoder().encode(message);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
 
     // --- LOGIQUE CONNEXION ---
-    function checkLogin() {
+    async function checkLogin() {
         const input = document.getElementById('login-pass').value;
         const errorMsg = document.getElementById('login-error');
+        
+        // Hacher le mot de passe saisi
+        const inputHash = await sha256(input);
 
-        if (input === monMotDePasse) {
+        if (inputHash === PASSWORD_HASH) {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('app-content').classList.remove('hidden');
             document.getElementById('app-content').style.display = 'block';
