@@ -1012,9 +1012,20 @@
                     <label style="display:block; font-weight:600; color:#555; margin-bottom:6px; font-size:0.9rem;">Email du donateur *</label>
                     <input type="email" id="r-email" required placeholder="email@exemple.com" oninput="mettreAJourApercu()" style="width:100%; padding:11px 13px; border:1px solid #e0e0e0; border-radius:9px; font-size:0.95rem; font-family:inherit; background:#fafafa; box-sizing:border-box;">
                 </div>
+                <div style="margin-bottom:14px;">
+                    <label style="display:block; font-weight:600; color:#555; margin-bottom:6px; font-size:0.9rem;">Type de don *</label>
+                    <select id="r-type-don" required onchange="toggleDonNature(); mettreAJourApercu()" style="width:100%; padding:11px 13px; border:1px solid #e0e0e0; border-radius:9px; font-size:0.95rem; font-family:inherit; background:#fafafa; box-sizing:border-box;">
+                        <option value="argent">Don en argent</option>
+                        <option value="nature">Don en nature</option>
+                    </select>
+                </div>
+                <div id="champ-description-nature" style="display:none; margin-bottom:14px;">
+                    <label style="display:block; font-weight:600; color:#555; margin-bottom:6px; font-size:0.9rem;">Description des biens donnés *</label>
+                    <textarea id="r-description-nature" placeholder="Ex: Vêtements, jouets, matériel médical..." oninput="mettreAJourApercu()" style="width:100%; padding:11px 13px; border:1px solid #e0e0e0; border-radius:9px; font-size:0.95rem; font-family:inherit; background:#fafafa; box-sizing:border-box; min-height:80px;"></textarea>
+                </div>
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
                     <div>
-                        <label style="display:block; font-weight:600; color:#555; margin-bottom:6px; font-size:0.9rem;">Montant (€) *</label>
+                        <label style="display:block; font-weight:600; color:#555; margin-bottom:6px; font-size:0.9rem;"><span id="label-montant">Montant (€)</span> *</label>
                         <input type="number" id="r-montant" required min="1" step="0.01" placeholder="0.00" oninput="mettreAJourApercu()" style="width:100%; padding:11px 13px; border:1px solid #e0e0e0; border-radius:9px; font-size:0.95rem; font-family:inherit; background:#fafafa; box-sizing:border-box;">
                     </div>
                     <div>
@@ -1425,6 +1436,24 @@
         return 'ASP-' + now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + '-' + String(now.getTime()).slice(-4);
     }
 
+    function toggleDonNature() {
+        var typeDon = document.getElementById('r-type-don').value;
+        var champDesc = document.getElementById('champ-description-nature');
+        var descTextarea = document.getElementById('r-description-nature');
+        var labelMontant = document.getElementById('label-montant');
+        
+        if (typeDon === 'nature') {
+            champDesc.style.display = 'block';
+            descTextarea.setAttribute('required', 'required');
+            labelMontant.textContent = 'Valeur estimée (€)';
+        } else {
+            champDesc.style.display = 'none';
+            descTextarea.removeAttribute('required');
+            descTextarea.value = '';
+            labelMontant.textContent = 'Montant (€)';
+        }
+    }
+
     function mettreAJourApercu() {
         var prenom = document.getElementById('r-prenom').value || '___';
         var nom = document.getElementById('r-nom').value || '___';
@@ -1488,30 +1517,34 @@
         var prenom       = document.getElementById('r-prenom').value;
         var nom          = document.getElementById('r-nom').value;
         var adresse      = document.getElementById('r-adresse').value;
-        var cp           = document.getElementById('r-cp').value;
-        var ville        = document.getElementById('r-ville').value;
-        var email        = document.getElementById('r-email').value;
-        var montant      = parseFloat(document.getElementById('r-montant').value);
-        var date         = document.getElementById('r-date').value;
-        var typeDon      = document.getElementById('r-type').value;
-        var numRecu      = genNumRecu();
-        var dateFormatee = new Date(date).toLocaleDateString('fr-FR', {day:'2-digit', month:'long', year:'numeric'});
-        var dateEmission = new Date().toLocaleDateString('fr-FR');
+        var cp               = document.getElementById('r-cp').value;
+        var ville            = document.getElementById('r-ville').value;
+        var email            = document.getElementById('r-email').value;
+        var montant          = parseFloat(document.getElementById('r-montant').value);
+        var date             = document.getElementById('r-date').value;
+        var typeDon          = document.getElementById('r-type').value;
+        var typeVersement    = document.getElementById('r-type-don').value;
+        var descriptionNature = typeVersement === 'nature' ? document.getElementById('r-description-nature').value : '';
+        var numRecu          = genNumRecu();
+        var dateFormatee     = new Date(date).toLocaleDateString('fr-FR', {day:'2-digit', month:'long', year:'numeric'});
+        var dateEmission     = new Date().toLocaleDateString('fr-FR');
 
         var payload = {
-            type:          'recu_fiscal',
-            numRecu:       numRecu,
-            prenom:        prenom,
-            nom:           nom,
-            adresse:       adresse,
-            cp:            cp,
-            ville:         ville,
-            email:         email,
-            montant:       montant.toFixed(2),
-            montantLettre: nombreEnLettres(montant),
-            date:          dateFormatee,
-            typeDon:       typeDon,
-            dateEmission:  dateEmission
+            type:              'recu_fiscal',
+            numRecu:           numRecu,
+            prenom:            prenom,
+            nom:               nom,
+            adresse:           adresse,
+            cp:                cp,
+            ville:             ville,
+            email:             email,
+            montant:           montant.toFixed(2),
+            montantLettre:     nombreEnLettres(montant),
+            date:              dateFormatee,
+            typeDon:           typeDon,
+            typeVersement:     typeVersement,
+            descriptionNature: descriptionNature,
+            dateEmission:      dateEmission
         };
 
         try {
