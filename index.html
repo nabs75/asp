@@ -1092,7 +1092,8 @@
             type: 'contact',
             nom: nom,
             email: email,
-            message: msg
+            message: msg,
+            _referer: window.location.hostname
         };
 
         // Gestion de l'état du bouton
@@ -1136,7 +1137,14 @@
     // ============================================================
     // CONFIGURATION COMPTA ASSO
     // ============================================================
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz1r5VAFH4gLyJbyh3rnzRNZ5qIoJEMYF5gmLaLRJJqhlgIwf7HNVotsQeTDANFNFZv/exec";
+    // URL obfusquée pour protection basique
+    const _p1 = "https://script.google.com";
+    const _p2 = "/macros/s/";
+    const _p3 = "AKfycbz1r5VAFH4gLy";
+    const _p4 = "Jbyh3rnzRNZ5qIoJEMYF5gm";
+    const _p5 = "LaLRJJqhlgIwf7HNVotsQeTDANFNFZv";
+    const _p6 = "/exec";
+    const GOOGLE_SCRIPT_URL = _p1 + _p2 + _p3 + _p4 + _p5 + _p6;
 
     // --- AUTHENTIFICATION SÉCURISÉE (SHA-256) ---
     // Hash SHA-256 du mot de passe (irréversible)
@@ -1288,7 +1296,8 @@
             amount: document.getElementById('t-amount').value,
             category: document.getElementById('t-category').value,
             date: document.getElementById('t-date').value,
-            file: null
+            file: null,
+            _referer: window.location.hostname
         };
 
         if (selectedFile) {
@@ -1565,7 +1574,8 @@
             typeDon:           typeDon,
             typeVersement:     typeVersement,
             descriptionNature: descriptionNature,
-            dateEmission:      dateEmission
+            dateEmission:      dateEmission,
+            _referer:          window.location.hostname
         };
 
         try {
