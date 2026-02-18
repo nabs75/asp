@@ -1033,7 +1033,7 @@
                         <input type="date" id="r-date" required oninput="mettreAJourApercu()" style="width:100%; padding:11px 13px; border:1px solid #e0e0e0; border-radius:9px; font-size:0.95rem; font-family:inherit; background:#fafafa; box-sizing:border-box;">
                     </div>
                 </div>
-                <div style="margin-bottom:20px;">
+                <div id="champ-forme-don" style="margin-bottom:20px;">
                     <label style="display:block; font-weight:600; color:#555; margin-bottom:6px; font-size:0.9rem;">Forme du don *</label>
                     <select id="r-type" required onchange="mettreAJourApercu()" style="width:100%; padding:11px 13px; border:1px solid #e0e0e0; border-radius:9px; font-size:0.95rem; font-family:inherit; background:#fafafa; box-sizing:border-box;">
                         <option value="Virement bancaire">Virement bancaire</option>
@@ -1041,6 +1041,7 @@
                         <option value="Espèces">Espèces</option>
                         <option value="Don en ligne (HelloAsso)">Don en ligne (HelloAsso)</option>
                         <option value="Prélèvement automatique">Prélèvement automatique</option>
+                        <option value="Don en nature" style="display:none;">Don en nature</option>
                     </select>
                 </div>
                 <button type="submit" id="btn-envoyer-recu" style="width:100%; padding:15px; background:linear-gradient(45deg,#D83A56,#FF5E62); color:white; border:none; border-radius:10px; font-size:1rem; font-weight:bold; cursor:pointer; box-shadow:0 5px 15px rgba(216,58,86,0.3);">
@@ -1441,16 +1442,26 @@
         var champDesc = document.getElementById('champ-description-nature');
         var descTextarea = document.getElementById('r-description-nature');
         var labelMontant = document.getElementById('label-montant');
+        var champFormeDon = document.getElementById('champ-forme-don');
+        var selectFormeDon = document.getElementById('r-type');
         
         if (typeDon === 'nature') {
             champDesc.style.display = 'block';
             descTextarea.setAttribute('required', 'required');
             labelMontant.textContent = 'Valeur estimée (€)';
+            // Masquer le champ Forme du don pour les dons en nature
+            champFormeDon.style.display = 'none';
+            selectFormeDon.removeAttribute('required');
+            selectFormeDon.value = 'Don en nature';
         } else {
             champDesc.style.display = 'none';
             descTextarea.removeAttribute('required');
             descTextarea.value = '';
             labelMontant.textContent = 'Montant (€)';
+            // Réafficher le champ Forme du don pour les dons en argent
+            champFormeDon.style.display = 'block';
+            selectFormeDon.setAttribute('required', 'required');
+            selectFormeDon.value = 'Virement bancaire';
         }
     }
 
