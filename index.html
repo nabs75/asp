@@ -1,448 +1,317 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" style="scroll-behavior:smooth;">
 <head>
     <meta charset="UTF-8">
     <title>Aider Son Prochain</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* === ton CSS initial inchangé (collé depuis ton fichier) === */
-        /* Pour gagner de la place ici, garde exactement le CSS de ton index.html initial. */
-    </style>
-</head>
-<body>
+        /* === CSS repris de ton paste.txt sans modification structurelle === */
 
-<!-- === ton HTML de contenu initial (hero, historique, pôles, dons, presse, partenaires, contact, footer, etc.)
-     NE CHANGE RIEN à cette partie : copie/colle ton HTML initial jusqu'avant les anciens <script> === -->
-
-<!-- --------- ÉCRAN LOGIN COMPTA (déjà présent dans ton fichier initial) --------- -->
-<div id="login-screen" style="display:none;">
-    <!-- garde ici le HTML de ton écran de login existant -->
-</div>
-
-<!-- --------- APP COMPTA / REÇUS (déjà présent dans ton fichier initial) --------- -->
-<div id="app-content" class="hidden">
-    <!-- garde ici le HTML de ton module compta + module reçus fiscaux existants -->
-</div>
-
-<div id="toast" class="toast">Message</div>
-
-<!-- ======================================================================
-     SCRIPTS AVEC SÉCURITÉ API (MOT DE PASSE LOCAL + TOKEN apiSecret)
-     ====================================================================== -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-<script>
-// =================== CONFIG GLOBALE ===================
-const CONTACT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0mLHxA8NRnQtaFAOivHz2DPqo-NZN7sV5LYRCmT_AvaYl68_kVSh7SjYBOU2BhysG/exec";
-const GOOGLE_SCRIPT_URL  = "https://script.google.com/macros/s/AKfycbz1r5VAFH4gLyJbyh3rnzRNZ5qIoJEMYF5gmLaLRJJqhlgIwf7HNVotsQeTDANFNFZv/exec";
-
-// Mot de passe local pour le bureau
-const LOCAL_ACCESS_PASSWORD = 'kiwi@69200';
-
-// Token de session envoyé dans apiSecret (doit matcher API_SECRET dans Apps Script)
-let sessionApiSecret = null;
-
-// =================== OUTILS ===================
-function deriveTokenFromPassword(pass) {
-    const salt = 'asp_compta_salt_v1';
-    let str = pass + '::' + salt;
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        hash = ((hash << 5) - hash) + str.charCodeAt(i);
-        hash |= 0;
-    }
-    return 'F_' + Math.abs(hash).toString(16) + '_T';
-}
-
-function showToast(msg, type) {
-    const t = document.getElementById('toast');
-    if (!t) return;
-    t.textContent = msg;
-    t.style.borderLeft = type === 'error' ? '5px solid #e74c3c' : '5px solid #0F9D58';
-    t.className = 'toast show';
-    setTimeout(() => t.className = 'toast', 3000);
-}
-
-// =================== CAPTCHA + CONTACT ===================
-let captchaResult = 0;
-
-function generateCaptcha() {
-    var operators = ['+', '-', '×'];
-    var op = operators[Math.floor(Math.random() * operators.length)];
-    var a, b, result;
-    if (op === '+') {
-        a = Math.floor(Math.random() * 10) + 1;
-        b = Math.floor(Math.random() * 10) + 1;
-        result = a + b;
-    } else if (op === '-') {
-        a = Math.floor(Math.random() * 10) + 5;
-        b = Math.floor(Math.random() * 5) + 1;
-        result = a - b;
-    } else {
-        a = Math.floor(Math.random() * 5) + 2;
-        b = Math.floor(Math.random() * 5) + 2;
-        result = a * b;
-    }
-    captchaResult = result;
-    const q = document.getElementById('captcha-question');
-    const aInput = document.getElementById('captcha-answer');
-    if (q) q.textContent = a + ' ' + op + ' ' + b;
-    if (aInput) {
-        aInput.value = '';
-        aInput.classList.remove('error');
-    }
-}
-
-async function sendContact(event) {
-    event.preventDefault();
-
-    var userAnswer = parseInt(document.getElementById('captcha-answer').value);
-    var captchaInput = document.getElementById('captcha-answer');
-    if (isNaN(userAnswer) || userAnswer !== captchaResult) {
-        captchaInput.classList.add('error');
-        captchaInput.value = '';
-        captchaInput.focus();
-        showToast("❌ Réponse incorrecte, réessayez !", 'error');
-        setTimeout(function() { generateCaptcha(); }, 1000);
-        return;
-    }
-
-    const nom   = document.getElementById('contact-name').value;
-    const email = document.getElementById('contact-email').value;
-    const msg   = document.getElementById('contact-message').value;
-    const btn   = document.getElementById('btn-contact');
-
-    const payload = { type: 'contact', nom, email, message: msg };
-
-    const originalText = btn.innerText;
-    btn.innerText = "Envoi en cours...";
-    btn.disabled = true;
-
-    try {
-        const response = await fetch(CONTACT_SCRIPT_URL + "?t=" + new Date().getTime(), {
-            method: 'POST',
-            redirect: 'follow',
-            mode: 'cors',
-            headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify(payload)
-        });
-        const result = await response.json();
-
-        if (result.result === 'success') {
-            showToast("Message envoyé !", 'success');
-            document.getElementById('contactForm').reset();
-            generateCaptcha();
-            btn.innerText = "Message envoyé !";
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.disabled  = false;
-            }, 3000);
-        } else {
-            showToast("Erreur: " + result.error, 'error');
-            btn.innerText = originalText;
-            btn.disabled  = false;
+        :root {
+            --primary-color: #D83A56; 
+            --secondary-color: #FF5E62;
+            --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fda085 100%);
+            --page-bg: #ffffff;
+            --link-color: #D83A56;
         }
-    } catch (err) {
-        showToast("Erreur de connexion", 'error');
-        console.error(err);
-        btn.innerText = originalText;
-        btn.disabled  = false;
-    }
-}
 
-// =================== LOGIN / LOGOUT COMPTA ===================
-function checkLogin() {
-    const input    = document.getElementById('login-pass').value;
-    const errorMsg = document.getElementById('login-error');
-
-    if (input === LOCAL_ACCESS_PASSWORD) {
-        sessionApiSecret = deriveTokenFromPassword(input); // => doit égal API_SECRET côté Apps Script
-
-        document.getElementById('login-screen').style.display = 'none';
-        document.getElementById('app-content').classList.remove('hidden');
-        document.getElementById('app-content').style.display = 'block';
-        document.querySelector('.container-public').style.display = 'none';
-        localStorage.setItem('compta_auth', 'true');
-        if (errorMsg) errorMsg.style.display = 'none';
-    } else {
-        if (errorMsg) errorMsg.style.display = 'block';
-        document.getElementById('login-pass').value = '';
-        document.getElementById('login-pass').focus();
-    }
-}
-
-function logout() {
-    sessionApiSecret = null;
-    localStorage.removeItem('compta_auth');
-    document.getElementById('app-content').style.display = 'none';
-    document.getElementById('app-content').classList.add('hidden');
-    document.getElementById('login-screen').style.display = 'none';
-    document.querySelector('.container-public').style.display = 'flex';
-}
-
-document.getElementById('login-pass').addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        checkLogin();
-    }
-});
-
-// =================== LOGIQUE COMPTA ===================
-const categories = {
-    expense: ['Pôle social', 'Pôle médical'],
-    income:  ['Cotisations', 'Subventions', 'Dons', 'Autres']
-};
-let currentType  = 'expense';
-let selectedFile = null;
-let sessionStats = { income: 0, expense: 0 };
-
-document.addEventListener('DOMContentLoaded', () => {
-    const dateInput = document.getElementById('t-date');
-    if (dateInput) dateInput.valueAsDate = new Date();
-    updateCategories();
-    renderStats();
-
-    const dateRecu = document.getElementById('r-date');
-    if (dateRecu) dateRecu.valueAsDate = new Date();
-
-    generateCaptcha();
-});
-
-function setType(type) {
-    currentType = type;
-    document.getElementById('t-type').value = type;
-
-    const btnExp = document.getElementById('btn-expense');
-    const btnInc = document.getElementById('btn-income');
-
-    if (type === 'expense') {
-        btnExp.classList.add('active');
-        btnInc.classList.remove('active');
-    } else {
-        btnInc.classList.add('active');
-        btnExp.classList.remove('active');
-    }
-    updateCategories();
-}
-
-function updateCategories() {
-    const select = document.getElementById('t-category');
-    if (!select) return;
-    select.innerHTML = '';
-    categories[currentType].forEach(cat => {
-        const opt = document.createElement('option');
-        opt.value = cat;
-        opt.textContent = cat;
-        select.appendChild(opt);
-    });
-}
-
-function handleFileSelect(input) {
-    if (input.files && input.files[0]) {
-        selectedFile = input.files[0];
-        document.getElementById('upload-text').style.display = 'none';
-        const img = document.getElementById('file-preview');
-        img.src = URL.createObjectURL(selectedFile);
-        img.style.display = 'inline-block';
-    }
-}
-
-function renderStats() {
-    const inc = document.getElementById('stat-income');
-    const exp = document.getElementById('stat-expense');
-    if (inc) inc.textContent  = sessionStats.income.toFixed(2)  + ' €';
-    if (exp) exp.textContent = sessionStats.expense.toFixed(2) + ' €';
-}
-
-const toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload  = () => {
-        const parts = reader.result.split(',');
-        resolve({ data: parts[1], type: parts[0].match(/:(.*?);/)[1] });
-    };
-    reader.onerror = error => reject(error);
-});
-
-document.getElementById('comptaForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    if (!sessionApiSecret) {
-        showToast('Veuillez vous connecter avant d’envoyer une opération.', 'error');
-        return;
-    }
-
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.innerHTML = 'Envoi...';
-
-    const now = new Date();
-    const idLisible = now.toLocaleDateString('fr-FR') + ' ' + now.toLocaleTimeString('fr-FR');
-
-    const payload = {
-        apiSecret: sessionApiSecret,
-        id:        idLisible,
-        type:      document.getElementById('t-type').value,
-        desc:      document.getElementById('t-desc').value,
-        payer:     document.getElementById('t-payer').value,
-        payment:   document.getElementById('t-payment').value,
-        amount:    document.getElementById('t-amount').value,
-        category:  document.getElementById('t-category').value,
-        date:      document.getElementById('t-date').value,
-        file:      null
-    };
-
-    if (selectedFile) {
-        try {
-            payload.file = await toBase64(selectedFile);
-        } catch (err) {
-            showToast('Erreur lecture image', 'error');
-            btn.disabled = false;
-            btn.innerHTML = 'Réessayer';
-            return;
+        html, body {
+            margin: 0;
+            padding: 0; 
+            width: 100%;
+            min-height: 100vh; 
+            background-color: #ffffff; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
-    }
 
-    try {
-        const response = await fetch(GOOGLE_SCRIPT_URL + "?t=" + new Date().getTime(), {
-            method: 'POST',
-            redirect: 'follow',
-            mode: 'cors',
-            headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify(payload)
-        });
-        const result = await response.json();
-
-        if (result.result === 'success') {
-            showToast('Envoyé !', 'success');
-            document.getElementById('comptaForm').reset();
-            const dateInput = document.getElementById('t-date');
-            if (dateInput) dateInput.valueAsDate = new Date();
-            setType('expense');
-            document.getElementById('file-preview').style.display = 'none';
-            document.getElementById('upload-text').style.display  = 'block';
-            selectedFile = null;
-
-            const val = parseFloat(payload.amount);
-            if (payload.type === 'income') sessionStats.income  += val;
-            else                           sessionStats.expense += val;
-            renderStats();
-        } else {
-            showToast('Erreur: ' + result.error, 'error');
+        * {
+            box-sizing: border-box;
         }
-    } catch (err) {
-        showToast('Erreur de connexion', 'error');
-        console.error(err);
-    } finally {
-        btn.disabled = false;
-        btn.innerHTML = 'Envoyer';
-    }
-});
 
-// =================== ONGLET COMPTA / REÇUS ===================
-function afficherOnglet(onglet) {
-    var compta    = document.getElementById('module-compta');
-    var recu      = document.getElementById('module-recu');
-    var tabCompta = document.getElementById('tab-compta');
-    var tabRecu   = document.getElementById('tab-recu');
-
-    if (onglet === 'compta') {
-        compta.style.display = 'block';
-        recu.style.display   = 'none';
-        tabCompta.style.background = '#D83A56';
-        tabCompta.style.color      = 'white';
-        tabRecu.style.background   = 'white';
-        tabRecu.style.color        = '#D83A56';
-    } else {
-        compta.style.display = 'none';
-        recu.style.display   = 'block';
-        tabRecu.style.background   = '#D83A56';
-        tabRecu.style.color        = 'white';
-        tabCompta.style.background = 'white';
-        tabCompta.style.color      = '#D83A56';
-        var dateRecu = document.getElementById('r-date');
-        if (dateRecu && !dateRecu.value) dateRecu.valueAsDate = new Date();
-    }
-}
-
-// =================== REÇUS FISCAUX (FRONT) ===================
-function genNumRecu() {
-    var now = new Date();
-    return 'ASP-' + now.getFullYear() + '-' +
-           String(now.getMonth()+1).padStart(2,'0') + '-' +
-           String(now.getDate()).padStart(2,'0') + '-' +
-           String(now.getTime()).slice(-4);
-}
-
-function toggleDonNature() {
-    var typeDon   = document.getElementById('r-type-don').value;
-    var champDesc = document.getElementById('champ-description-nature');
-    var descTextarea = document.getElementById('r-description-nature');
-    var labelMontant = document.getElementById('label-montant');
-    var champFormeDon = document.getElementById('champ-forme-don');
-    var selectFormeDon = document.getElementById('r-type');
-
-    if (typeDon === 'nature') {
-        champDesc.style.display = 'block';
-        descTextarea.setAttribute('required', 'required');
-        labelMontant.textContent = 'Valeur estimée (€)';
-        champFormeDon.style.display = 'none';
-        selectFormeDon.removeAttribute('required');
-        selectFormeDon.value = 'Don en nature';
-    } else {
-        champDesc.style.display = 'none';
-        descTextarea.removeAttribute('required');
-        descTextarea.value = '';
-        labelMontant.textContent = 'Montant (€)';
-        champFormeDon.style.display = 'block';
-        selectFormeDon.setAttribute('required', 'required');
-        selectFormeDon.value = 'Virement bancaire';
-    }
-}
-
-function nombreEnLettres(n) {
-    if (isNaN(n)) return '___';
-    var unite   = ['', 'un','deux','trois','quatre','cinq','six','sept','huit','neuf','dix','onze','douze','treize','quatorze','quinze','seize','dix-sept','dix-huit','dix-neuf'];
-    var dizaine = ['','','vingt','trente','quarante','cinquante','soixante','soixante','quatre-vingt','quatre-vingt'];
-    function conv(nb) {
-        if (nb === 0) return '';
-        if (nb < 20) return unite[nb];
-        if (nb < 100) {
-            var d = Math.floor(nb/10), u = nb%10;
-            if (d === 7 || d === 9) return dizaine[d] + (u === 1 && d === 7 ? '-et-' : '-') + unite[d===7||d===9 ? u+10 : u];
-            return dizaine[d] + (u === 1 && d !== 8 ? '-et-un' : u ? '-'+unite[u] : (d===8?'s':''));
+        .container-public {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
         }
-        if (nb < 1000) return (nb===100?'cent':(conv(Math.floor(nb/100))+(Math.floor(nb/100)>1?'-cents':'-cent'))) + (nb%100 ? '-'+conv(nb%100) : '');
-        if (nb < 10000) return conv(Math.floor(nb/1000)) + '-mille' + (nb%1000 ? '-'+conv(nb%1000) : '');
-        return nb.toString();
-    }
-    var entier = Math.floor(n), cents = Math.round((n - entier)*100);
-    var res = entier === 0 ? 'zéro' : conv(entier);
-    if (cents > 0) res += ' virgule ' + conv(cents) + ' centime' + (cents > 1 ? 's' : '');
-    return res.charAt(0).toUpperCase() + res.slice(1);
-}
 
-function mettreAJourApercu() {
-    var prenom = document.getElementById('r-prenom').value || '___';
-    var nom    = document.getElementById('r-nom').value || '___';
-    var adresse = document.getElementById('r-adresse').value || '___';
-    var cp      = document.getElementById('r-cp').value || '___';
-    var ville   = document.getElementById('r-ville').value || '___';
-    var email   = document.getElementById('r-email').value || '___';
-    var montant = document.getElementById('r-montant').value || '___';
-    var date    = document.getElementById('r-date').value;
-    var dateFormatee = date ? new Date(date).toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}) : '___';
-    var typeDon = document.getElementById('r-type').value;
-    var numRecu = genNumRecu();
-    var montantLettre = montant !== '___' ? nombreEnLettres(parseFloat(montant)) : '___';
+        .container {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
 
-    document.getElementById('recu-apercu').innerHTML =
-        '<div class="att-header">' +
-            '<div class="att-logo">🤝 ASP – Aider Son Prochain</div>' +
-            '<div class="att-titre">Reçu pour dons aux œuvres</div>' +
-            '<div class="att-num">N° ' + numRecu + ' • Établi conformément à l\'article 200 du CGI</div>' +
-        '</div>' +
-        '<div class="att-section"><div class="att-label">Association bénéficiaire</div><div class="att-value"><strong>ASP – Aider Son Prochain</strong><br>24, rue Emile Zola – 69200 Vénissieux<br>Association Loi 1901 reconnue d\'intérêt général</div></div>' +
-        '<div class="att-section"><div class="att-label">Donateur</div><div class="att-value"><strong>' + prenom + ' ' + nom + '</strong><br>' + adresse + '<br>' + cp + ' ' + ville + '<br>' + email + '</div></div>' +
-        '<div class="att-montant">💰 ' + (montant !== '___' ? parseFloat(montant).toFixed(2) + ' €' : '___') + '<br><span style="font-size:0.75rem;font-weight:400;color:#888;">Soit : ' + montantLettre + ' euros</span></div>' +
-        '<div class="att-section"><div class="att-label">Date du versement</div><div class="att-value">' + dateFormatee + '</div></div>' +
-        '<div class="att-section"><div class="att-label">Forme du don</div><div class="att-v
+        h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 10px;
+            padding-top: 20px;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, #FF9966, #FF5E62);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .hero {
+            background: var(--bg-gradient);
+            text-align: center;
+            padding: 40px 20px 60px 20px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .hero-logo {
+            display: block;
+            margin: 0 auto;
+            max-width: 250px;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+
+        .brand-hero-text {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #ffffff; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero h1 {
+            color: #ffffff;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #ffffff;
+            max-width: 600px;
+            margin: 0 auto 20px auto;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+            font-size: 1rem;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #FF512F, #DD2476);
+            color: white;
+            box-shadow: 0 5px 15px rgba(221, 36, 118, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #ffffff, #fdfbfb);
+            color: #DD2476;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .history {
+            background: linear-gradient(to bottom, #fff, #fff9f5);
+            padding: 40px 20px;
+            margin-bottom: 50px;
+            border-left: 5px solid #FF9966;
+            border-radius: 0 20px 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .history-text {
+            font-size: 1.05rem;
+            color: #444;
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+
+        .poles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+
+        .pole-card {
+            background-color: #fff;
+            border: 1px solid #ffeeee;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(255, 153, 102, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .pole-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pole-card h3 {
+            color: #FF5E62;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .current-state {
+            text-align: center;
+            background: linear-gradient(135deg, #fff5f5, #fff0f0);
+            padding: 25px;
+            border-radius: 20px;
+            color: #D83A56;
+            font-weight: 600;
+            border: 1px solid #ffe0e0;
+        }
+
+        .pole-section {
+            margin-bottom: 60px;
+        }
+
+        .pole-intro {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .tag-exclusive {
+            background: linear-gradient(45deg, #FF9966, #FF5E62);
+            color: white;
+            font-size: 0.8rem;
+            padding: 5px 20px;
+            border-radius: 30px;
+            vertical-align: middle;
+            margin-left: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(221, 36, 118, 0.2);
+        }
+
+        .action-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .action-card {
+            background: white;
+            border: 1px solid #fff;
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 350px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 94, 98, 0.15);
+            border-color: #ffe0e0;
+        }
+
+        .action-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .action-card h3 {
+            color: #D83A56;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .action-card p {
+            font-size: 1rem;
+            color: #555;
+            text-align: justify;
+        }
+
+        .donation-section {
+            background: linear-gradient(135deg, #fdfbfb 0%, #ffedef 100%);
+            padding: 50px 20px;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 60px;
+            border: 2px solid #fff;
+            box-shadow: inset 0 0 20px rgba(255, 94, 98, 0.05);
+        }
+
+        .tax-badge {
+            background: linear-gradient(45deg, #FF9966, #FF5E62);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(255, 94, 98, 0.4);
+        }
+
+        .donation-text {
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .dona
