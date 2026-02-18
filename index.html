@@ -5,313 +5,66 @@
     <title>Aider Son Prochain</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* === CSS repris de ton paste.txt sans modification structurelle === */
+        /* ... (garde ici tout ton CSS actuel, inchangé) ... */
+    </style>
+</head>
+<body>
 
-        :root {
-            --primary-color: #D83A56; 
-            --secondary-color: #FF5E62;
-            --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fda085 100%);
-            --page-bg: #ffffff;
-            --link-color: #D83A56;
-        }
+<div class="container-public">
+    <div class="container">
 
-        html, body {
-            margin: 0;
-            padding: 0; 
-            width: 100%;
-            min-height: 100vh; 
-            background-color: #ffffff; 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+        <!-- ... (garde ici tout ton HTML de contenu public : hero, historique, pôles, dons, presse, partenaires, contact, footer) ... -->
 
-        * {
-            box-sizing: border-box;
-        }
+        <footer class="footer">
+            <p>&copy; 2014 Association Aider Son Prochain (ASP) - <a href="https://annuaire-entreprises.data.gouv.fr/documents/837640259" target="_blank" style="text-decoration: underline;">Loi 1901</a></p>
+            <div class="footer-actions">
+                <a href="https://www.instagram.com/asp_aider_son_prochain/" target="_blank" aria-label="Suivez-nous sur Instagram">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png" alt="Instagram" class="social-icon">
+                </a>
+                <a href="#" onclick="document.getElementById('login-screen').style.display='flex'; return false;" style="text-decoration: underline;">Espace Membres</a>
+            </div>
+        </footer>
 
-        .container-public {
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
+    </div>
+</div>
 
-        .container {
-            width: 100%;
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 0 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
+<div id="login-screen">
+    <div class="login-box">
+        <h2 style="margin-bottom: 15px;">Compta Asso</h2>
+        <p style="color: #666; font-size: 1rem; margin-bottom: 20px;">Veuillez vous identifier</p>
+        <input type="password" id="login-pass" placeholder="Mot de passe">
+        <button class="login-btn" onclick="checkLogin()">Entrer</button>
+        <button style="margin-top:15px; background:none; border:none; text-decoration:underline; color:#666; cursor:pointer; font-size: 1rem;" onclick="document.getElementById('login-screen').style.display='none';">Annuler</button>
+        <div id="login-error" class="login-error">Mot de passe incorrect</div>
+    </div>
+</div>
 
-        h2 {
-            color: var(--primary-color);
-            font-size: 2rem;
-            margin-bottom: 30px;
-            text-align: center;
-            position: relative;
-            padding-bottom: 10px;
-            padding-top: 20px;
-        }
+<div id="app-content" class="hidden">
+    <header>
+        <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+            <h1 style="margin:0;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                Espace Bureau
+            </h1>
+            <div style="display:flex; gap:8px;">
+                <button id="tab-compta" onclick="afficherOnglet('compta')" style="padding:7px 16px; border-radius:20px; border:2px solid #D83A56; background:#D83A56; color:white; cursor:pointer; font-weight:bold; font-size:0.9rem;">📊 Compta</button>
+                <button id="tab-recu" onclick="afficherOnglet('recu')" style="padding:7px 16px; border-radius:20px; border:2px solid #D83A56; background:white; color:#D83A56; cursor:pointer; font-weight:bold; font-size:0.9rem;">🧾 Reçus fiscaux</button>
+            </div>
+        </div>
+        <button onclick="logout()" style="background:none; border:none; color:#D83A56; cursor:pointer; font-size:1rem;">Quitter</button>
+    </header>
 
-        h2::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(to right, #FF9966, #FF5E62);
-            margin: 10px auto 0;
-            border-radius: 2px;
-        }
-
-        .hero {
-            background: var(--bg-gradient);
-            text-align: center;
-            padding: 40px 20px 60px 20px;
-            border-radius: 20px;
-            margin-bottom: 50px;
-            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 200px;
-            height: 200px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-        }
-
-        .hero-logo {
-            display: block;
-            margin: 0 auto;
-            max-width: 250px;
-            height: auto;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
-        }
-
-        .brand-hero-text {
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: #ffffff; 
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .hero h1 {
-            color: #ffffff;
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: #ffffff;
-            max-width: 600px;
-            margin: 0 auto 20px auto;
-            font-weight: 500;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: inline-block;
-            font-size: 1rem;
-            border: none;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, #FF512F, #DD2476);
-            color: white;
-            box-shadow: 0 5px 15px rgba(221, 36, 118, 0.4);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(45deg, #ffffff, #fdfbfb);
-            color: #DD2476;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-
-        .history {
-            background: linear-gradient(to bottom, #fff, #fff9f5);
-            padding: 40px 20px;
-            margin-bottom: 50px;
-            border-left: 5px solid #FF9966;
-            border-radius: 0 20px 20px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-        }
-
-        .history-text {
-            font-size: 1.05rem;
-            color: #444;
-            margin-bottom: 30px;
-            text-align: justify;
-        }
-
-        .poles-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 40px;
-            margin-bottom: 30px;
-        }
-
-        .pole-card {
-            background-color: #fff;
-            border: 1px solid #ffeeee;
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(255, 153, 102, 0.1);
-            transition: transform 0.3s;
-        }
-
-        .pole-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .pole-card h3 {
-            color: #FF5E62;
-            margin-bottom: 10px;
-            font-size: 1.4rem;
-        }
-
-        .current-state {
-            text-align: center;
-            background: linear-gradient(135deg, #fff5f5, #fff0f0);
-            padding: 25px;
-            border-radius: 20px;
-            color: #D83A56;
-            font-weight: 600;
-            border: 1px solid #ffe0e0;
-        }
-
-        .pole-section {
-            margin-bottom: 60px;
-        }
-
-        .pole-intro {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #555;
-            font-size: 1.1rem;
-        }
-
-        .tag-exclusive {
-            background: linear-gradient(45deg, #FF9966, #FF5E62);
-            color: white;
-            font-size: 0.8rem;
-            padding: 5px 20px;
-            border-radius: 30px;
-            vertical-align: middle;
-            margin-left: 10px;
-            text-transform: uppercase;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(221, 36, 118, 0.2);
-        }
-
-        .action-grid {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .action-card {
-            background: white;
-            border: 1px solid #fff;
-            border-radius: 20px;
-            padding: 30px;
-            width: 100%;
-            max-width: 350px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .action-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(255, 94, 98, 0.15);
-            border-color: #ffe0e0;
-        }
-
-        .action-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .action-card h3 {
-            color: #D83A56;
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .action-card p {
-            font-size: 1rem;
-            color: #555;
-            text-align: justify;
-        }
-
-        .donation-section {
-            background: linear-gradient(135deg, #fdfbfb 0%, #ffedef 100%);
-            padding: 50px 20px;
-            text-align: center;
-            border-radius: 20px;
-            margin-bottom: 60px;
-            border: 2px solid #fff;
-            box-shadow: inset 0 0 20px rgba(255, 94, 98, 0.05);
-        }
-
-        .tax-badge {
-            background: linear-gradient(45deg, #FF9966, #FF5E62);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            display: inline-block;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(255, 94, 98, 0.4);
-        }
-
-        .donation-text {
-            max-width: 800px;
-            margin: 0 auto 30px auto;
-            color: #555;
-            font-size: 1.1rem;
-        }
-
-        .dona
+    <main class="container" id="module-compta">
+        <!-- ... (tes stats et formulaire compta comme avant) ... -->
+        <div class="stats">
+            <div class="card">
+                <h3>Recettes (Session)</h3>
+                <div class="val" id="stat-income">0 €</div>
+            </div>
+            <div class="card">
+                <h3>Dépenses (Session)</h3>
+                <div class="val" id="stat-expense">0 €</div>
+            </div>
+        </div>
+        <div class="form-box">
+            <h2 style="margin-bottom: 2rem;">Saisir une opération<
