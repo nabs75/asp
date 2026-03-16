@@ -997,7 +997,8 @@
 <!-- MODULE NEWSLETTER -->
 <div id="module-newsletter" style="display:none; width:100%;">
     <iframe 
-        src="https://aidersonprochain-newsletter.vercel.app" 
+        id="newsletter-iframe"
+        src=""
         style="width:100%; height:calc(100vh - 70px); border:none; display:block;"
         title="Générateur de Newsletter">
     </iframe>
@@ -1110,6 +1111,10 @@
             document.getElementById('app-content').style.display = 'block';
             document.querySelector('.container-public').style.display = 'none';
             localStorage.setItem('compta_auth', 'true');
+            localStorage.setItem('newsletter_token', btoa(input));
+            // Injection sécurisée du token dans l'iframe newsletter (jamais visible dans le HTML source)
+            document.getElementById('newsletter-iframe').src = 
+                'https://aidersonprochain-newsletter.vercel.app?token=' + btoa(input);
         } else {
             errorMsg.style.display = 'block';
             document.getElementById('login-pass').value = '';
@@ -1119,6 +1124,8 @@
 
     function logout() {
         localStorage.removeItem('compta_auth');
+        localStorage.removeItem('newsletter_token');
+        document.getElementById('newsletter-iframe').src = '';
         document.getElementById('app-content').style.display = 'none';
         document.getElementById('app-content').classList.add('hidden');
         document.getElementById('login-screen').style.display = 'none';
@@ -1130,6 +1137,12 @@
         document.getElementById('app-content').classList.remove('hidden');
         document.getElementById('app-content').style.display = 'block';
         document.querySelector('.container-public').style.display = 'none';
+        // Restaure l'iframe newsletter si déjà authentifié
+        var storedToken = localStorage.getItem('newsletter_token');
+        if (storedToken) {
+            document.getElementById('newsletter-iframe').src = 
+                'https://aidersonprochain-newsletter.vercel.app?token=' + storedToken;
+        }
     }
 
     document.getElementById('login-pass').addEventListener("keypress", function(event) {
